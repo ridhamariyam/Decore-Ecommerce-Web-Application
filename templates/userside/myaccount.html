@@ -1,0 +1,229 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Account {% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        .logos {
+            display: flex;
+            justify-content:center;
+            margin: 20px 0;
+        }
+        .logos img {
+            height: 50px;
+            margin: 0 10px;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            margin: 50px 0;
+        }
+        .section img {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+                                    <div align="right">
+                                        <div class="dropdown mini-cart top-cart">
+                                            <div class="remove-cart-shadow"></div>
+                                            <a class="dropdown-toggle cart-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                                <div class="icons-cart">
+                                                    <font size="4"><i class="icon-large-paper-bag"></i></font>
+                                                    <font size="2"><span class="cart-count">2</span></font>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+
+                                    
+    <header class="myaccount-header" id="account-section-title-block">
+        <h1 id="account-section-heading"></h1>
+        <p id="account-section-subheading"></p>
+        
+    </header>
+    <nav>
+        <ul class="dashboard__list" id="add-nav">
+            <li id="add-nav-item-01">         
+                <input type="hidden" id="exz" value="/in/en">
+                <a id="add-nav-link-01" href="{% url 'profile' %}" data-toggle="profileTab" data-src="?tab=profile" class="dashboard__list__link">
+                    <h2 class="dashboard__list__link__title">Profile</h2>
+                    <p class="dashboard__list__link__text">Manage your personal details.</p>
+                </a>
+            </li>
+            <li id="add-nav-item-09">
+                <a id="add-nav-link-09" href="/in/en/my-account/wishlist" data-toggle="wishlistTab" data-src="?tab=wishlist" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_favourites"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Favourites</h2>
+                    <p class="dashboard__list__link__text">View your most wanted products.</p>
+                </a>
+            </li>
+            <li id="add-nav-item-03">
+                <a id="add-nav-link-03"  href="{% url 'address' %}"  data-toggle="addressTab" data-src="?tab=address-book" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_addressbook"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Address Book</h2>
+                    <p class="dashboard__list__link__text">Manage your shipping and billing addresses.</p>
+                </a>
+            </li>
+            <li id="add-nav-item-04">
+                <a id="add-nav-link-04" href="{% url 'couponlist' %}" data-toggle="paymentTab" data-src="?tab=payment-details" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_paymentoptions"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Coupon</h2>
+                    <p class="dashboard__list__link__text">Save your Coupon</p>
+                </a>
+            </li>
+            <li id="add-nav-item-02">
+                <a id="add-nav-link-02" href="{% url 'order' %}" data-toggle="ordersTab" data-src="?tab=orders" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_order"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Orders</h2>
+                    <p class="dashboard__list__link__text">View and track your orders.</p>
+                </a>
+            </li>  
+            <li id="add-nav-item-02">
+                <a id="add-nav-link-02" href="{% url 'wallet' %}" data-toggle="ordersTab" data-src="?tab=orders" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_order"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Wallet</h2>
+                    <p class="dashboard__list__link__text">View your wallet points</p>
+                </a>
+            </li>  
+            <li id="add-nav-item-02">
+                <a id="add-nav-link-02" href="{% url 'refer' %}" data-toggle="ordersTab" data-src="?tab=orders" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_order"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Refer Friends </h2>
+                    <p class="dashboard__list__link__text">
+                        Earn upto ₹50 from each friends 
+                    </p>
+                </a>
+            </li>    
+            <li id="add-nav-item-02">
+                <a id="add-nav-link-02" href="{% url 'returnpolicy' %}" data-toggle="ordersTab" data-src="?tab=orders" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_order"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Return Policy </h2>
+                    <p class="dashboard__list__link__text">
+                        Discover exactly how our returns  and refunds work.
+                    </p>
+                </a>
+            </li>                 
+        </ul>
+        <ul class="dashboard__list">
+            <li id="add-nav-item-07" class="visible-xs dashboard__list__item">
+                <a id="add-nav-link-07" href="/in/en/j_spring_security_logout" class="dashboard__list__link">
+                    <figure class="account-logo"><svg class="svg-heart">
+<use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_signout"></use>
+</svg>
+</figure>
+                    <h2 class="dashboard__list__link__title">Sign out</h2>
+                    <p class="dashboard__list__link__text">Sign out from your account.</p>
+                </a>
+            </li>
+        </ul>
+       
+    </nav>
+    
+</body>
+</html>
+
+
+{% endblock content %}

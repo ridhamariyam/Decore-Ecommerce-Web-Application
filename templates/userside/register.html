@@ -1,0 +1,382 @@
+
+{% extends "userside/base.html" %}
+{% load static %}
+{% block title %} Register {% endblock %}
+{% block content %}
+
+
+  {% comment %} <div id="page" class="hfeed page-wrapper">
+    <header id="site-header" class="site-header header-v1 absolute">
+      <div class="header-mobile">
+        <div class="section-padding">
+          <div class="section-container">
+            <div class="row">
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
+                <div class="navbar-header">
+                  <button type="button" id="show-megamenu" class="navbar-toggle"></button>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
+                <div class="site-logo">
+                  <a href="index.html">
+                    <img width="400" height="79" src="{% static 'media/DECORE' %}.png"
+                      alt="Ruper – Furniture HTML Theme" />
+                  </a>
+                </div>
+              </div>
+              <div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-right">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12 header-right">
+          <div class="header-page-link">
+              <div class="form-register">
+                  <form method="post"class="register" action="{% url 'register' %}">
+                      {% csrf_token %}
+                      
+                      <h2>REGISTER</h2>
+                     
+                        <div class="content">
+                          <div class="uname">
+                            <input type="text" class="input-text" placeholder="Username" name="username" id="reg_uname"
+                              value="" />
+                          </div>
+                          {% if error_message %}
+                          <span style="color:red">{{ error_message }}</span>
+                          {% endif %}
+
+                          <div class="email">
+                            <input type="email" class="input-text" placeholder="Email" name="email" id="reg_email"
+                              value="" />
+                          </div>
+                          
+                          {% if error_message %}
+                          <span style="color:red">{{ error_message }}</span>
+                          {% endif %}
+
+                          <div class="password1">
+                            <input type="password" class="input-text" placeholder="Password" name="password1"
+                              id="reg_password1" />
+                          </div>
+                          {% if error_message %}
+                          <span style="color:red">{{ error_message }}</span>
+                          {% endif %}
+                          <div class="password2">
+                            <input type="password" class="input-text" placeholder="Password" name="password2"
+                              id="reg_password2" />
+                          </div>
+                          <div class="button-register">
+                            <input type="submit" class="button" name="register" value="Register" />
+                          </div>
+                          <div class="button-next-login">Already has an account</div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </header> {% endcomment %}
+
+  <div id="site-main" class="site-main">
+    <div id="main-content" class="main-content">
+      <div id="primary" class="content-area">
+        <div id="title" class="page-title">
+          <div class="section-container">
+            <div class="content-title-heading">
+              <h1 class="text-title-heading">
+                Register
+              </h1>
+            </div>
+            <div class="breadcrumbs">
+              <a href="home.html">Home</a><span class="delimiter"></span> Register
+            </div>
+          </div>
+        </div>
+
+        <div id="content" class="site-content" role="main">
+          <div class="section-padding">
+            <div class="section-container p-l-r">
+              <div class="page-login-register">
+                <div class="row">
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div class="box-form-login">
+                      <h2 class="register">Register</h2>
+                      <div class="box-content">
+                        <div class="form-register">
+                          <form method="post" class="register" action="{% url 'register' %}">
+                            
+                            <div class="email">
+                              <label>Username <span class="required">*</span></label>
+                              <input type="text" class="input-text" name="username" value="">
+                            </div>
+                            <div class="email">
+                              <label>Email address <span class="required">*</span></label>
+                              <input type="email" class="input-text" name="email" value="">
+                            </div>
+                            <div class="password">
+                              <label>Password <span class="required">*</span></label>
+                              <input type="password" class="input-text" name="password1">
+                            </div>
+                            <div class="password">
+                              <label>confirm Password <span class="required">*</span></label>
+                              <input type="password" class="input-text" name="password2">
+                            </div>
+                            {% csrf_token %} 
+                             {% if messages %}
+                                {% for message in messages %}
+                                    <p style="color: red;">{{ message }}</p>
+                                {% endfor %}  
+                            {% endif %}
+                            <div class="haveaccount">
+                              <a  href="{% url 'login' %}">Already has an account</a>
+                          </div>
+                          <input type="hidden" name="ref" value="{{ referral_code }}">
+                            <div class="button-register">
+                              <input type="submit" class="button" name="register" value="Register" >
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div><!-- #content -->
+      </div><!-- #primary -->
+    </div><!-- #main-content -->
+  </div>
+{% comment %} 
+  <footer id="site-footer" class="site-footer background">
+    <div class="footer">
+      <div class="section-padding">
+        <div class="section-container">
+          <div class="block-widget-wrap">
+            <div class="row">
+              <div class="col-lg-3 col-md-6">
+                <div class="block block-menu m-b-20">
+                  <h2 class="block-title">Contact Us</h2>
+                  <div class="block-content">
+                    <ul>
+                      <li>
+                        <a href="page-contact.html">616.774.0561</a>
+                      </li>
+                      <li>
+                        <a href="page-contact.html">866.453.4748</a>
+                      </li>
+                      <li>
+                        <a href="page-contact.html">HR Fax: 810.222.5439</a>
+                      </li>
+                      <li>
+                        <a href="page-contact.html">sales@ruperfurniture.com</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="block block-social">
+                  <ul class="social-link">
+                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a href="#"><i class="fa fa-instagram"></i></a></li>
+                    <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="block block-menu">
+                  <h2 class="block-title">Showroom</h2>
+                  <div class="block-content">
+                    <p>1000 84th Street SW , Byron Center, MI 49315</p>
+                    <p>AmericasMart Bldg. #1</p>
+                    <p>Suite 5C-1, Atlanta, GA 30303</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="block block-menu">
+                  <h2 class="block-title">Services</h2>
+                  <div class="block-content">
+                    <ul>
+                      <li>
+                        <a href="page-about.html">Sale</a>
+                      </li>
+                      <li>
+                        <a href="page-about.html">Quick Ship</a>
+                      </li>
+                      <li>
+                        <a href="page-about.html">New Designs</a>
+                      </li>
+                      <li>
+                        <a href="page-about.html">Accidental Fabric Protection</a>
+                      </li>
+                      <li>
+                        <a href="page-about.html">Furniture Care</a>
+                      </li>
+                      <li>
+                        <a href="page-about.html">Gift Cards</a>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3 col-md-6">
+                <div class="block block-newsletter">
+                  <h2 class="block-title">Newsletter</h2>
+                  <div class="block-content">
+                    <div class="newsletter-text">Enter your email below to be the first to know about new collections
+                      and product launches.</div>
+                    <form action="#" method="post" class="newsletter-form">
+                      <input type="email" class="bg-white" name="your-email" value="" size="40"
+                        placeholder="Email address">
+                      <span class="btn-submit">
+                        <input type="submit" value="Subscribe">
+                      </span>
+                    </form>
+                  </div>
+                </div>
+                <div class="block block-image">
+                  <img width="309" height="32" src="{% static 'media/payments.jpg' %}" alt="">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="section-padding">
+        <div class="section-container">
+          <div class="block-widget-wrap">
+            <p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+  </div> {% endcomment %}
+
+  <!-- Back Top button -->
+  <div class="back-top button-show">
+    <i class="arrow_carrot-up"></i>
+  </div>
+
+  
+  <!-- Quickview -->
+  <div class="quickview-popup">
+    <div id="quickview-container">
+      <div class="quickview-container">
+        <a href="#" class="quickview-close"></a>
+        <div class="quickview-notices-wrapper"></div>
+        <div class="product single-product product-type-simple">
+          <div class="product-detail">
+            <div class="row">
+              <div class="img-quickview">
+                <div class="product-images-slider">
+                  <div id="quickview-slick-carousel">
+                    <div class="images">
+                      <div class="scroll-image">
+                        <div class="slick-wrap">
+                          <div class="slick-sliders image-additional" data-dots="true" data-columns4="1"
+                            data-columns3="1" data-columns2="1" data-columns1="1" data-columns="1" data-nav="true">
+                            <div class="img-thumbnail slick-slide">
+                              <a href="media/product/3.jpg" class="image-scroll" title="">
+                                <img width="900" height="900" src="{% static 'media/product/3.jpg' %}" alt="">
+                              </a>
+                            </div>
+                            <div class="img-thumbnail slick-slide">
+                              <a href="media/product/3-2.jpg" class="image-scroll" title="">
+                                <img width="900" height="900" src="{% static 'media/product/3-2.jpg' %}" alt="">
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="quickview-single-info">
+                <div class="product-content-detail entry-summary">
+                  <h1 class="product-title entry-title">Chair Oak Matt Lacquered</h1>
+                  <div class="price-single">
+                    <div class="price">
+                      <del><span>$150.00</span></del>
+                      <span>$100.00</span>
+                    </div>
+                  </div>
+                  <div class="product-rating">
+                    <div class="star-rating" role="img" aria-label="Rated 4.00 out of 5">
+                      <span style="width:80%">Rated <strong class="rating">4.00</strong> out of 5 based on <span
+                          class="rating">1</span> customer rating</span>
+                    </div>
+                    <a href="#" class="review-link">(<span class="count">1</span> customer review)</a>
+                  </div>
+                  <div class="description">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
+                      labore…</p>
+                  </div>
+                  <form class="cart" method="post" enctype="multipart/form-data">
+                    <div class="quantity-button">
+                      <div class="quantity">
+                        <button type="button" class="plus">+</button>
+                        <input type="number" class="input-text qty text" step="1" min="1" max="" name="quantity"
+                          value="1" title="Qty" size="4" placeholder="" inputmode="numeric" autocomplete="off">
+                        <button type="button" class="minus">-</button>
+                      </div>
+                      <button type="submit" class="single-add-to-cart-button button alt">Add to cart</button>
+                    </div>
+                    <button class="button quick-buy">Buy It Now</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page Loader -->
+  <div class="page-preloader">
+    <div class="loader">
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+
+  <!-- Dependency Scripts -->
+  <script src="{% static 'libs/popper/js/popper.min.js' %}"></script>
+  <script src="{% static 'libs/jquery/js/jquery.min.js' %}"></script>
+  <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'libs/slick/js/slick.min.js' %}"></script>
+  <script src="{% static 'libs/countdown/js/jquery.countdown.min.js' %}"></script>
+  <script src="{% static 'libs/mmenu/js/jquery.mmenu.all.min.js' %}"></script>
+
+  <!-- Site Scripts -->
+  <script src="{% static 'assets/js/app' %}.js"></script>
+  <script>
+    window.onload = function () {
+      if (window.location.href.indexOf("registration_success") > -1) {
+        window.location.href = "{% url 'otp' %}";
+      }
+    };
+  </script>
+</body>
+
+<!-- Mirrored from caketheme.com/html/ruper/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Jul 2023 09:39:08 GMT -->
+
+</html>
+
+{% endblock %}

@@ -1,0 +1,214 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+   
+    
+
+        .button button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button button:hover {
+            background-color: #0056b3;
+        }
+
+        
+        .show-form .account_form {
+            display: block; /* Show the form when the class is present */
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .add-address-link {
+            font-weight: bold;
+        }
+        .nice-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .label {
+            font-weight: bold;
+        }
+        
+        /* Rest of your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .order-summary {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        
+        .order-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .items th,
+        .items td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .items th {
+            background-color: white;
+        }
+</style>
+</head>
+<body>
+
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+                                          
+    </header>
+    <div class="container">
+        <header class="myaccount-header" id="account-section-title-block">
+            <h1 id="account-section-heading"></h1>
+            <p id="account-section-subheading"></p>
+        </header>
+    
+        <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+            <div class="breadcrumb-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">RETURN POLICY</h3>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <h2  style="color: black;">What is your policy on returns?</h2>
+        <p style="font-size: 17px;">
+            We understand that you may occasionally wish to return your purchases. We'll be happy to help you with the process.
+            <br><br>
+            Except Bedsheets, Curtains, Cushions, Dhurries, Rugs, Polyester Door mats, Table Linen, and Kitchen linen, other household products are Non-Returnable.
+            <br><br>
+            We do not accept the return of any furniture item/s that have been delivered.
+            <br><br>
+            Please return your household products in their original packaging, within 14 days of delivery.
+            <br><br>
+            Double-check that you've included all the tags, accessories, promotional gifts, and warranty cards that came with your order.
+        </p>
+        <h2  style="color: black;">What is your policy on Cancellation?</h2>
+        <p style="font-size: 17px;">
+            You can cancel your order or a part of your order online on HomeCentre.com as long as you do so before it has been processed.<br><br>
+
+            If it has already been dispatched, you can wait for it to arrive and then refuse the delivery.<br><br>
+            
+            Please note, you can also cancel products you’ve bought during a sale.<br><br>
+            
+            Once you’ve cancelled an order, your refund will be credited to your card, bank account or wallet after we’ve finished processing the cancellation.<br><br>
+        </p>
+                    
+               
+            
+
+
+{% endblock %}

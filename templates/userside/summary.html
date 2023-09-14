@@ -1,0 +1,200 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <style>
+        {% comment %} body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        .logos {
+            display: flex;
+            justify-content:center;
+            margin: 20px 0;
+        }
+        .logos img {
+            height: 50px;
+            margin: 0 10px;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            margin: 50px 0;
+        }
+        .section img {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+		.empty-cart {
+			position: relative;
+			text-align: center;
+			height: 40vh; /* Adjust the height as needed */
+		}
+		
+		.empty-cart-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+		}
+     {% endcomment %}
+        
+        
+    
+            .order-confirmation {
+              max-width: 600px;
+              margin: 0 auto;
+              padding: 40px;
+              background-color: #ffffff;
+              box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+              border-radius: 10px;
+              text-align: center;
+            }
+            h2 {
+              font-size: 30px;
+              font-weight: bold;
+              color: #333333;
+              margin-bottom: 30px;
+            }
+            p {
+              font-size: 18px;
+              color: #666666;
+              margin-bottom: 20px;
+            }
+            .btn {
+              display: inline-block;
+              padding: 10px 20px;
+              color: #ffffff;
+              border-radius: 5px;
+              text-decoration: none;
+              font-size: 16px;
+              margin-top: 20px;
+            }
+            
+    </style>
+</head>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'shop' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+								
+							</div>
+						</div>
+					</div>
+
+					
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				
+		
+            <body>
+              <div class="container">
+              
+                <div class="order-confirmation">
+                  <h2>Thank you for your order!</h2>
+                  <p>Your order has been successfully placed.</p>
+                  <p>Order ID: <span style="color: black;">{{ new_order.tracking_no }}</span></p>
+
+                  <p>Estimated Delivery Date: Within 7 days.</p>
+                  <p>Shipping Address: <span style="color: black;">{{new_order.address.city}}</span></p>
+                  {% comment %} <p>Total Amount:<span style="color: black;"> {{total}}</span></p> {% endcomment %}
+                  <p>We will send you an email confirmation shortly.</p>
+                  <a href="{%url 'order_detail' %}" class="btn_1">Proceed to Orders for more details.</a>
+                </div>
+               
+              </div>
+            </header>
+        </div>
+
+
+        </head>
+
+{% endblock %}

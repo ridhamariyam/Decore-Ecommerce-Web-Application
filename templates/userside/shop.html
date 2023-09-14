@@ -1,0 +1,657 @@
+{% extends "userside/base.html" %}
+{% load static %}
+{% block title %} shop {% endblock %}
+{% block content %}
+
+	<body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-left">
+									<div class="navbar-header">
+										<button type="button" id="show-megamenu" class="navbar-toggle"></button>
+									</div>
+								</div>
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
+									<div class="site-logo">
+										<a href="index.html">
+											<img width="400" height="79" src="{% static 'media/logo.png' %}" alt="Ruper – Furniture HTML Theme" />
+										</a>
+									</div>
+								</div>
+								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-3 col-3 header-right">
+									<div class="ruper-topcart dropdown">
+										<div class="dropdown mini-cart top-cart">
+											<div class="remove-cart-shadow"></div>
+											<a class="dropdown-toggle cart-icon" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+												<div class="icons-cart"><i class="icon-large-paper-bag"></i><span class="cart-count">2</span></div>
+											</a>
+											<div class="dropdown-menu cart-popup">
+												<div class="cart-empty-wrap">
+													<ul class="cart-list">
+														<li class="empty">
+															<span>No products in the cart.</span>
+															<a class="go-shop" href="{% url 'shop' %}">GO TO SHOP<i aria-hidden="true" class="arrow_right"></i></a>
+														</li>
+													</ul>
+												</div>
+												<div class="cart-list-wrap">
+													<ul class="cart-list ">
+														<li class="mini-cart-item">
+															<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
+															<a href="shop-details.html" class="product-image"><img width="600" height="600" src="{% static 'media/product/3.jpg' %}" alt=""></a>
+															<a href="shop-details.html" class="product-name">Chair Oak Matt Lacquered</a>		
+															<div class="quantity">Qty: 1</div>
+															<div class="price">$150.00</div>
+														</li>
+														<li class="mini-cart-item">
+															<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>													
+															<a href="shop-details.html" class="product-image"><img width="600" height="600" src="{% static 'media/product/1.jpg' %}" alt=""></a>
+															<a href="shop-details.html" class="product-name">Zunkel Schwarz</a>
+															<div class="quantity">Qty: 1</div>
+															<div class="price">$100.00</div>						
+														</li>
+													</ul>
+													<div class="total-cart">
+														<div class="title-total">Total: </div>
+														<div class="total-price"><span>$100.00</span></div>
+													</div>
+													<div class="free-ship">
+														<div class="title-ship">Buy <strong>$400</strong> more to enjoy <strong>FREE Shipping</strong></div>
+														<div class="total-percent"><div class="percent" style="width:20%"></div></div>
+													</div>
+													<div class="buttons">
+														<a href="shop-cart.html" class="button btn view-cart btn-primary">View cart</a>
+														<a href="shop-checkout.html" class="button btn checkout btn-default">Check out</a>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="header-mobile-fixed">
+						<!-- Shop -->
+						<div class="shop-page">
+							<a href="shop-grid-left.html"><i class="wpb-icon-shop"></i></a>
+						</div>
+
+						<!-- Login -->
+						<div class="my-account">
+							<div class="login-header">
+								<a href="page-my-account.html"><i class="wpb-icon-user"></i></a>
+							</div>
+						</div>
+
+						<!-- Search -->
+						<div class="search-box">
+							<div class="search-toggle"><i class="wpb-icon-magnifying-glass"></i></div>
+						</div>
+
+						<!-- Wishlist -->
+						{% comment %} <div class="wishlist-box">
+							<a href="shop-wishlist.html"><i class="wpb-icon-heart"></i></a>
+						</div> {% endcomment %}
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'shop' %}"><span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+									<div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-12 header-right">
+										<div class="header-page-link">
+											<!-- Login -->
+											{% comment %} <div class="login-header">
+												<a class="active-login" href="#">Login</a>
+												<div class="form-login-register">
+													<div class="box-form-login">
+														<div class="active-login"></div>
+														<div class="box-content">
+															<div class="form-login active">
+																<form id="login_ajax" method="post" class="login">
+																	<h2>Sign in</h2>
+																	<p class="status"></p>
+																	<div class="content">
+																		<div class="username">
+																			<input type="text" required="required" class="input-text" name="username" id="username" placeholder="Your name"/>
+																		</div>
+																		<div class="password">
+																			<input class="input-text" required="required" type="password" name="password" id="password" placeholder="Password"/>
+																		</div>
+																		<div class="rememberme-lost">
+																			<div class="rememberme">
+																				<input name="rememberme" type="checkbox" id="rememberme" value="forever"/>
+																				<label for="rememberme" class="inline">Remember me</label>
+																			</div>
+																			<div class="lost_password">
+																				<a href="forgot-password.html">Lost your password?</a>
+																			</div>
+																		</div>
+																		<div class="button-login">
+																			<input type="submit" class="button" name="login" value="Login"/>
+																		</div>
+																		<div class="button-next-reregister">Create An Account</div>
+																	</div>						
+																</form>
+															</div>
+															<div class="form-register">
+																<form method="post" class="register">
+																	<h2>REGISTER</h2>
+																	<div class="content">
+																		<div class="email">
+																			<input type="email" class="input-text" placeholder="Email" name="email" id="reg_email" value=""/>
+																		</div>
+																		<div class="password">
+																			<input type="password" class="input-text" placeholder="Password" name="password" id="reg_password"/>
+																		</div>															
+																		<div class="button-register">
+																			<input type="submit" class="button" name="register" value="Register"/>
+																		</div>
+																		<div class="button-next-login">Already has an account</div>
+																	</div>
+																</form>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div> {% endcomment %}
+
+											<!-- Search -->
+											{% comment %} <div class="search-box">
+												<div class="search-toggle"><i class="icon-search"></i></div>
+											</div> {% endcomment %}
+											
+											<!-- Wishlist -->
+											<div class="ruper-topcart dropdown light">
+												<div class="dropdown mini-cart top-cart">
+												  <div class="remove-cart-shadow"></div>
+												  <a class="dropdown-toggle cart-icon" href="wishlist.html" role="button"
+													 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+													<div class="icons-cart">
+													  <i class="wishlist-icon fa fa-heart"></i>
+													  <span class="cart-count">2</span>
+													</div>
+												  </a>
+												  <!-- Wishlist dropdown content goes here -->
+												</div>
+											</div>
+	
+											
+											<!-- Cart -->
+											<div class="ruper-topcart dropdown light">
+												<div class="dropdown mini-cart top-cart">
+													<span>
+														<a href="{% url 'cart' %}" style="font-size: 20px;">
+															<i class="fa fa-shopping-cart"></i>
+														</a>
+													</span>
+													<div class="dropdown-menu cart-popup">
+														<div class="cart-empty-wrap">
+															<ul class="cart-list">
+																<li class="empty">
+																	<span>No products in the cart.</span>
+																	<a class="go-shop" href="shop-grid-left.html">GO TO SHOP<i aria-hidden="true" class="arrow_right"></i></a>
+																</li>
+															</ul>
+														</div>
+														<div class="cart-list-wrap">
+															<ul class="cart-list ">
+																<li class="mini-cart-item">
+																	<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>
+																	<a href="shop-details.html" class="product-image"><img width="600" height="600" src="{% static 'media/product/3.jpg' %}" alt=""></a>
+																	<a href="shop-details.html" class="product-name">Chair Oak Matt Lacquered</a>		
+																	<div class="quantity">Qty: 1</div>
+																	<div class="price">$150.00</div>
+																</li>
+																<li class="mini-cart-item">
+																	<a href="#" class="remove" title="Remove this item"><i class="icon_close"></i></a>													
+																	<a href="shop-details.html" class="product-image"><img width="600" height="600" src="{% static 'media/product/1.jpg' %}" alt=""></a>
+																	<a href="shop-details.html" class="product-name">Zunkel Schwarz</a>
+																	<div class="quantity">Qty: 1</div>
+																	<div class="price">$100.00</div>						
+																</li>
+															</ul>
+															<div class="total-cart">
+																<div class="title-total">Total: </div>
+																<div class="total-price"><span>$100.00</span></div>
+															</div>
+															<div class="free-ship">
+																<div class="title-ship">Buy <strong>$400</strong> more to enjoy <strong>FREE Shipping</strong></div>
+																<div class="total-percent"><div class="percent" style="width:20%"></div></div>
+															</div>
+															<div class="buttons">
+																<a href="shop-cart.html" class="button btn view-cart btn-primary">View cart</a>
+																<a href="shop-checkout.html" class="button btn checkout btn-default">Check out</a>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Shop
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html"></a><span class="delimiter"></span>shop
+								</div>
+							</div>
+						</div>
+
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								<div class="section-container p-l-r">
+									<div class="row">
+										<div class="col-xl-3 col-lg-3 col-md-12 col-12 sidebar left-sidebar md-b-50">
+											<!-- Block Product Categories -->
+											<div class="block block-product-cats">
+												<div class="block-title"><h2>Categories</h2></div>
+												<div class="block-content">
+													<div class="product-cats-list">
+														<ul>
+															<li>
+																<a href="shop-grid-left.html">Bed & Bath <span class="count">2</span></a>
+															</li>
+															<li>
+																<a href="shop-grid-left.html">Furniture <span class="count">4</span></a>
+															</li>
+															<li>
+																<a href="shop-grid-left.html">Home Décor <span class="count">3</span></a>
+															</li>
+															<li>
+																<a href="shop-grid-left.html">Lighting <span class="count">6</span></a>
+															</li>
+															<li>
+																<a href="shop-grid-left.html">Office <span class="count">2</span></a>
+															</li>
+															<li>
+																<a href="shop-grid-left.html">Outdoor <span class="count">4</span></a>
+															</li>
+														</ul>
+													</div>
+												</div>
+											</div>
+
+											<!-- Block Product Filter -->
+											<div class="block block-product-filter">
+												<div class="block-title"><h2>Price</h2></div>
+												<div class="block-content">
+													<div id="slider-range" class="price-filter-wrap">
+														<div class="filter-item price-filter">
+															<div class="layout-slider">
+																<input id="price-filter" name="price" value="0;100" />
+															</div>
+															<div class="layout-slider-settings"></div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<!-- Block Product Filter -->
+											<div class="block block-product-filter clearfix">
+												<div class="block-title"><h2>Size</h2></div>
+												<div class="block-content">
+													<ul class="filter-items text">
+														<li><span>L</span></li>
+														<li><span>M</span></li>
+														<li><span>S</span></li>
+													</ul>
+												</div>
+											</div>
+
+											<!-- Block Product Filter -->
+											<div class="block block-product-filter clearfix">
+												<div class="block-title"><h2>Brands</h2></div>
+												<div class="block-content">
+													<ul class="filter-items image">
+														<li><span><img src="{% static 'media/brand/1.jpg' %}" alt="Brand"></span></li>
+														<li><span><img src="{% static 'media/brand/2.jpg' %}" alt="Brand"></span></li>
+														<li><span><img src="{% static 'media/brand/3.jpg' %}" alt="Brand"></span></li>
+														<li><span><img src="{% static 'media/brand/4.jpg' %}" alt="Brand"></span></li>
+														<li><span><img src="{% static 'media/brand/5.jpg' %}" alt="Brand"></span></li>
+													</ul>
+												</div>
+											</div>
+
+											<!-- Block Products -->
+											<div class="block block-products">
+												<div class="block-title"><h2>Feature Product</h2></div>
+												<div class="block-content">
+													<ul class="products-list">
+														<li class="product-item">
+															<a href="shop-details.html" class="product-image">
+																<img src="{% static 'media/product/6.jpg' %}">
+															</a>
+															<div class="product-content">
+																<h2 class="product-title">
+																	<a href="shop-details.html">
+																		Dining Table
+																	</a>
+																</h2>
+																<div class="rating small">
+																	<div class="star star-5"></div>
+																</div>
+																<span class="price">
+																	<del aria-hidden="true"><span>₹150.00</span></del>
+																	<ins><span>$100.00</span></ins>
+																</span>
+															</div>
+														</li>
+														<li class="product-item">
+															<a href="shop-details.html" class="product-image">
+																<img src="{% static 'media/product/8.jpg' %}">
+															</a>
+															<div class="product-content">
+																<h2 class="product-title">
+																	<a href="shop-details.html">
+																		Spinning Pendant Lamp
+																	</a>
+																</h2>
+																<div class="rating small">
+																	<div class="star star-0"></div>
+																</div>
+																<span class="price">₹120.00</span>
+															</div>
+														</li>
+														<li class="product-item">
+															<a href="shop-details.html" class="product-image">
+																<img src="{% static 'media/product/9.jpg' %}">
+															</a>
+															<div class="product-content">
+																<h2 class="product-title">
+																	<a href="shop-details.html">
+																		Bora Armchair
+																	</a>
+																</h2>
+																<div class="rating small">
+																	<div class="star star-5"></div>
+																</div>
+																<span class="price">
+																	<del aria-hidden="true"><span>₹200.00</span></del> 
+																	<ins><span>₹180.00</span></ins>
+																</span>
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+
+										<div class="col-xl-9 col-lg-9 col-md-12 col-12">
+											<div class="products-topbar clearfix">
+												<div class="products-topbar-left">
+													<div class="products-count">
+														Showing all {{ products|length }} results
+													</div>
+												</div>
+												<div class="products-topbar-right">
+													<div class="products-sort dropdown">
+														<span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Default sorting</span>
+														<ul class="sort-list dropdown-menu" x-placement="bottom-start">
+															<li class="active"><a href="#">Default sorting</a></li>
+															<li><a href="#">Sort by popularity</a></li>
+															<li><a href="#">Sort by average rating</a></li>
+															<li><a href="#">Sort by latest</a></li>
+															<li><a href="#">Sort by price: low to high</a></li>
+															<li><a href="#">Sort by price: high to low</a></li>
+														</ul>
+													</div>
+													<ul class="layout-toggle nav nav-tabs">
+														<li class="nav-item">
+															<a class="layout-grid nav-link active" data-toggle="tab" href="#layout-grid" role="tab"><span class="icon-column"><span class="layer first"><span></span><span></span><span></span></span><span class="layer middle"><span></span><span></span><span></span></span><span class="layer last"><span></span><span></span><span></span></span></span></a>
+														</li>
+														<li class="nav-item">
+															<a class="layout-list nav-link" data-toggle="tab" href="#layout-list" role="tab"><span class="icon-column"><span class="layer first"><span></span><span></span></span><span class="layer middle"><span></span><span></span></span><span class="layer last"><span></span><span></span></span></span></a>
+														</li>
+													</ul>
+												</div>
+											</div>
+											
+											<div class="tab-content">
+												<div class="tab-pane fade show active" id="layout-grid" role="tabpanel">
+													<div class="products-list grid">
+														<div class="row">
+															{% for product in products %}
+															 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
+																<div class="products-entry clearfix product-wapper">
+																	<div class="products-thumb">
+																		<div class="product-lable">
+																			<div class="hot"></div>
+																		</div>
+																		<div class="product-thumb-hover">
+																			
+																				
+																					<a href="{% url 'product_details' product.id %}">
+																						<img width="600" height="600" src="{{ product.images.first.image.url }}" alt="{{ product.product_name }}">
+																					</a>
+																				
+																		</div>
+																		
+												 						<div class="product-button">
+																			<div class="btn-add-to-cart" data-title="Add to cart">
+																				<a rel="nofollow" href="{% url 'add_to_cart' product.id  %}" class="product-btn button">Add to cart</a>
+																			</div>
+																			<div class="btn-wishlist" data-title="Wishlist">
+																				<a href="{% url 'add_to_wishlist' product.id  %}"class="product-btn">Add to wishlist</a>
+																			</div>
+																			<div class="btn-compare" data-title="Compare">
+																				<button class="product-btn">Compare</button>
+																			</div>
+																				
+																				
+																		</div>
+																	</div>
+
+																	<div class="products-content">
+																		{% if product.product.offer %}
+																			<div class="grid-price mt-2">
+																				<h3 class="product-title"><a href="shop-details.html">{{ product.product.product_name }}</a></h3>
+																				<span class="money"><del>&#8377;{{ product.price }}</del> &#8377;{{ product.get_offer_price }}</span>
+																			</div>
+																			<span style="color:green;">({{ product.product.offer.discount_percentage }}% off)</span>
+																		{% else %}
+																			<div class="contents text-center">
+																				<h3 class="product-title"><a href="shop-details.html">{{ product.product.product_name }}</a></h3>
+																				<span class="price">₹{{ product.price }}</span>
+																			</div>
+																		{% endif %}
+																		
+																	</div>
+																</div>
+															 </div>
+															 
+															{% endfor %}	
+														</div>
+													</div>
+												</div>
+											</div>
+
+											<nav class="pagination">
+												<ul class="page-numbers">
+													<li><a class="prev page-numbers" href="#">Previous</a></li>
+													<li><span aria-current="page" class="page-numbers current">1</span></li>
+													<li><a class="page-numbers" href="#">2</a></li>
+													<li><a class="page-numbers" href="#">3</a></li>
+													<li><a class="next page-numbers" href="#">Next</a></li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div><!-- #content -->
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+			</div>
+
+			<footer id="site-footer" class="site-footer background">
+				<div class="footer">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="block-widget-wrap">
+								<div class="row">
+									<div class="col-lg-3 col-md-6">
+										<div class="block block-menu m-b-20">
+											<h2 class="block-title">Contact Us</h2>
+											<div class="block-content">
+												<ul>
+													<li>
+														<a href="page-contact.html">616.774.0561</a>
+													</li>
+													<li>
+														<a href="page-contact.html">866.453.4748</a>
+													</li>
+													<li>
+														<a href="page-contact.html">HR Fax: 810.222.5439</a>
+													</li>
+													<li>
+														<a href="page-contact.html">sales@ruperfurniture.com</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+
+										<div class="block block-social">
+											<ul class="social-link">
+												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+												<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+												<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+												<li><a href="#"><i class="fa fa-behance"></i></a></li>
+											</ul>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-6">
+										<div class="block block-menu">
+											<h2 class="block-title">Showroom</h2>
+											<div class="block-content">
+												<p>1000 84th Street SW , Byron Center, MI 49315</p>
+												<p>AmericasMart Bldg. #1</p>
+												<p>Suite 5C-1, Atlanta, GA 30303</p>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-6">
+										<div class="block block-menu">
+											<h2 class="block-title">Services</h2>
+											<div class="block-content">
+												<ul>
+													<li>
+														<a href="page-about.html">Sale</a>
+													</li>
+													<li>
+														<a href="page-about.html">Quick Ship</a>
+													</li>
+													<li>
+														<a href="page-about.html">New Designs</a>
+													</li>
+													<li>
+														<a href="page-about.html">Accidental Fabric Protection</a>
+													</li>
+													<li>
+														<a href="page-about.html">Furniture Care</a>
+													</li>
+													<li>
+														<a href="page-about.html">Gift Cards</a>
+													</li>
+												</ul>
+											</div>
+										</div>
+									</div>
+									<div class="col-lg-3 col-md-6">
+										<div class="block block-newsletter">
+											<h2 class="block-title">Newsletter</h2>
+											<div class="block-content">
+												<div class="newsletter-text">Enter your email below to be the first to know about new collections and product launches.</div>
+												<form action="#" method="post" class="newsletter-form">
+													<input type="email" class="bg-white" name="your-email" value="" size="40" placeholder="Email address">
+													<span class="btn-submit">
+														<input type="submit" value="Subscribe">
+													</span>
+												</form>
+											</div>
+										</div>
+										<div class="block block-image">
+											<img width="309" height="32" src="{% static 'media/payments.png' %}" alt="">
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="footer-bottom">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="block-widget-wrap">
+								<p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+							</div>
+						</div>
+					</div>
+				</div>
+			</footer>
+		</div>
+
+		{% endblock content %} -->

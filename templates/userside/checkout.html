@@ -1,0 +1,359 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        .logos {
+            display: flex;
+            justify-content:center;
+            margin: 20px 0;
+        }
+        .logos img {
+            height: 50px;
+            margin: 0 10px;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            margin: 50px 0;
+        }
+        .section img {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+		.empty-cart {
+			position: relative;
+			text-align: center;
+			height: 40vh; /* Adjust the height as needed */
+		}
+		
+		.empty-cart-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+		}
+    </style>
+</head>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'shop' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+								
+							</div>
+						</div>
+					</div>
+
+					
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Checkout
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html">Shop</a><span class="delimiter"></span>Shopping Cart
+								</div>
+							</div>
+						</div>
+
+			
+									<div id="content" class="site-content" role="main">
+										<div class="section-padding">
+											<div class="section-container p-l-r">
+												<div class="shop-checkout">
+												
+													
+													<form name="checkout" method="post"  action="{% url 'place_order' %}" >
+														{% csrf_token %}
+														<div class="row">
+															<div class="col-xl-8 col-lg-7 col-md-12 col-12">
+																<div class="customer-details">
+																	<div class="billing-fields">
+																		<h3>Billing details</h3>
+																		<div class="billing-fields-wrapper">
+																		
+																			<p class="form-row address-field validate-required validate-state form-row-wide">
+																				<label>Address<span class="required" title="required">*</span></label>
+																				{% for address in add %} 
+																				
+																				<div class="input-wrapper">
+																					<label>
+																						<input type="radio" name="selected_address" value="{{address.id}}">
+																						{{address.address_name}}
+																						<address>
+																							{{address.full_name}}<br>
+																							{{address.street}}, {{address.city}}, {{address.state}}, {{address.phone_number}}<br>
+																							{{address.pincode}}
+																						</address>
+																					</label>
+																				</div>
+																			{% endfor %}
+																				
+																			</p>
+																			<div class="btn-quick-buy" data-title="Wishlist">
+																				<a href="{% url 'add_address' %}" class="product-btn">Add Address</a>
+																				
+																		
+																			</div>
+																		</div>
+																	</div>
+																	
+																</div>
+																
+																
+															</div>
+															
+															<div class="col-xl-4 col-lg-5 col-md-12 col-12">
+																<div class="checkout-review-order">
+																	<div class="checkout-review-order-table">
+																		<div class="review-order-title">Product</div>
+																		<div class="cart-items">
+																			
+																		{% for cart in cart_products %}
+																			<div class="cart-item">
+																				<div class="info-product">
+																					<div class="product-thumbnail">
+																						<img width="600" height="600" src="{{cart.variant.get_variant_image}}" alt="">
+																					</div>
+																					
+																					<div class="product-name">
+																						{{cart.product.product_name}}
+																						<strong class="product-quantity">QTY : {{cart.quantity}}</strong>
+																						<div class="total-price">
+																							<!-- Calculate and display the subtotal for each item -->
+																							<h2 style="color: grey;">Subtotal ----- ₹{{ cart.product.get_offer_price}}</h2>
+																						</div>        
+																					</div>
+																				</div>
+																			</div>
+																		{% endfor %}
+																		
+																	
+																			<div class="order-total">
+																			
+																				<div class="total-price">
+																					<h2 style="color: Black;">TOTAL </h2>
+																					</div>
+																					<strong>
+																						<h2 style="color: Black;"> ₹{{total	}}</h2>
+																					</strong> 
+																				</div>
+																		
+																		
+																		
+																	
+																	<div id="payment" class="checkout-payment">
+																		
+																		
+																		<button type="submit" class="button alt" name="payment_method" value="COD">Cash on delivery</button>
+																</div>	
+																<body>
+																	 <!-- Set up a container element for the button -->
+																	 <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+																	</head>
+																	<body>
+																		<div id="payment" class="checkout-payment">
+																			<div style="margin-top: 20px;"></div>
+																		<form id="payment-form">
+																			{% csrf_token %}
+																			
+																			<button id="rzp-button1" type="submit" class="button alt" name="payment_method" value="COD">Pay with Razorpay</button>
+																		</form>
+																	
+																		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+																				<!-- Razorpay  -->
+
+																		<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+																		<script>
+																			var options = {
+																				"key": "rzp_test_syOLTFEUoECCp5", // Enter the Key ID generated from the Dashboard
+																				"amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+																				"currency": "INR",
+																				"name": "EyeEnvy",
+																				//"redirect": false,
+																				//"callback_url": "http://127.0.0.1:8000/order/presuccess/",
+																				"description": "Purchase",
+																				"image": "https://example.com/your_logo",
+																				"order_id": "{{ payment.id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+																				'address':"",
+																				'token':'',
+																				"handler": function (response){
+																					$.ajax({
+																						method: "POST",
+																						url: "http://127.0.0.1:8000/place_order_razorpay/",
+																						data: {'address':options.address, csrfmiddlewaretoken: options.token},
+
+																						success: function (responsec) {
+																							alert(responsec.order)
+																	
+																								
+																							window.location.href = `http://127.0.0.1:8000/summary/${responsec.order}`
+														
+																						}
+														
+																					});
+																					
+																					alert(response.razorpay_payment_id);
+																					alert(response.razorpay_order_id);
+																					alert(response.razorpay_signature)
+																				},
+																				"theme": {
+																					"color": "#3399cc"
+																				}
+																			};
+																			var rzp1 = new Razorpay(options);
+																			rzp1.on('payment.failed', function (response){
+																					alert(response.error.code);
+																					alert(response.error.description);
+																					alert(response.error.source);
+																					alert(response.error.step);
+																					alert(response.error.reason);
+																					alert(response.error.metadata.order_id);
+																					alert(response.error.metadata.payment_id);
+																			});
+																			document.getElementById('rzp-button1').onclick = function(e){
+																				e.preventDefault();
+																			
+																				var address = $("[name='selected_address']:checked").val(); // Get the selected address
+																			
+																				if (!address) {
+																					alert("Please select an address.");
+																					return;
+																				}
+																			
+																				var token = $("[name='csrfmiddlewaretoken']").val();
+																				console.log(address, 'from event handler');
+																			
+																				// Update the 'address' property in the 'options' object
+																				options.address = address;
+																				options.token = token
+																			
+																				// Create the Razorpay instance and open the payment dialog
+																				var rzp1 = new Razorpay(options);
+																				rzp1.open();
+																			}
+																			
+																			</script>
+																		
+																</div>
+																	
+																	
+																
+																	
+			{% endblock %}
+			{% block add_style_footer %}
+			<script src="/static/user/libs/slider/js/tmpl.js"></script>
+			<script src="/static/user/libs/slider/js/jquery.dependClass-0.1.js"></script>
+			<script src="/static/user/libs/slider/js/draggable-0.1.js"></script>
+			<script src="/static/user/libs/slider/js/jquery.slider.js"></script>
+			<script src="/static/user/libs/elevatezoom/js/jquery.elevatezoom.js"></script>
+			<script src="/static/user/libs/select2/js/select2.min.js"></script>	
+			{% comment %} <script src="https://checkout.razorpay.com/v1/checkout.js"></script> {% endcomment %}
+			
+			<script src="/static/user/assets/js/checkout1.js"></script>
+</html>
+{% endblock %}

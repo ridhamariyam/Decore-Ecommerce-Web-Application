@@ -1,0 +1,302 @@
+
+{% load static %}
+<style>
+    body{
+        min-height: 50vh;
+        font-family: 'Exo 2';
+        font-size: 14px;   
+        color: #fff;
+        background:#eee;	
+    }
+    .modal-content{
+        background-color: grey;
+        border-color: white;
+        border-radius: 1rem;
+    }
+    @media (min-width: 576px){
+    .modal-dialog {
+        max-width: 750px;
+        margin: 1.75rem auto;
+    }
+    }
+    .show{
+        padding: 0;
+    }
+    .modal-header{
+        border-bottom: none;
+        text-align: center;
+    }
+    .modal-header .close {
+        padding: 1rem 1rem;
+        margin: -1rem -1rem -1rem 0;
+        color: #fff;
+    }
+    :-moz-any-link:focus {
+        outline: none;
+    }
+    .modal-title{
+        line-height: 3rem;
+    }
+    .modal-body{
+        padding: 1rem;
+    }
+    #progressbar {
+        margin-bottom: 3vh;
+        overflow: hidden;
+        color: white;
+        padding-left: 0px;
+        margin-top: 3vh
+    }
+    
+    #progressbar li {
+        list-style-type: none;
+        font-size: 0.8rem;
+        width: 25%;
+        float: left;
+        position: relative;
+        font-weight: 400;
+        color: black;
+    }
+    
+    #progressbar #step1:before {
+        content: "";
+        color: g;
+        width: 20px;
+        height: 20px;
+        margin-left: 0px !important;
+    }
+    
+    #progressbar #step2:before {
+        content: "";
+        color: #fff;
+        width: 20px;
+        height: 20px;
+        margin-left: 32%;
+    }
+    
+    #progressbar #step3:before {
+        content: "";
+        color: green;
+        width: 20px;
+        height: 20px;
+        margin-right: 32% ; 
+    }
+    
+    #progressbar #step4:before {
+        content: "";
+        color: rgb(151, 149, 149, 0.651);
+        width: 20px;
+        height: 20px;
+        margin-right: 0px !important;
+    }
+    
+    #progressbar li:before {
+        line-height: 29px;
+        display: block;
+        font-size: 12px;
+        background: rgb(151, 149, 149);
+        border-radius: 50%;
+        margin: auto;
+        z-index: -1;
+        margin-bottom: 1vh;
+    }
+    
+    #progressbar li:after {
+        content: '';
+        height: 3px;
+        background: rgb(151, 149, 149, 0.651);
+        position: absolute;
+        left: 0%;
+        right: 0%;
+        margin-bottom: 2vh;
+        top: 8px;
+        z-index: 1;
+    }
+    .progress-track{
+        padding: 0 8%;
+    }
+    #progressbar li:nth-child(2):after {
+        margin-right: auto;
+    }
+    
+    #progressbar li:nth-child(1):after {
+        margin: auto;
+    }
+    
+    #progressbar li:nth-child(3):after {
+        float: left;
+        width: 68%;
+    }
+    #progressbar li:nth-child(4):after {
+        margin-left: auto;
+        width: 132%;
+    }
+    
+    #progressbar li.active:before,
+    #progressbar li.active:after {
+        background: white;
+    }
+    
+    #three{
+        font-size: 1.2rem;
+    }
+    @media (max-width: 767px){
+        #three{
+            font-size: 1rem;
+        } 
+    }
+    .details{
+        padding: 2rem;
+        font-size: 1.4rem;
+        line-height: 3.5rem;
+    }
+    
+    @media (max-width: 767px){
+    .details {
+        padding: 2rem 0;
+        font-size: 1rem;
+        line-height: 2.5rem;
+    }
+    }
+    .d-table{
+        width: 100%;
+    }
+    .d-table-row{
+        width: 100%;
+    }
+    .d-table-cell{
+        padding-left: 3rem;
+    }
+    @media (max-width: 767px){
+        .d-table-cell{
+            padding-left: 1rem;
+        } 
+    }
+    .col-3{
+        display: grid;
+        text-align: end;
+    }
+    .col-3 .d-table-row{
+        align-self: flex-end;
+    }
+    .fa{
+        font-size: xx-large;
+        text-align: center;
+        width: 3rem;
+        padding: 0.5rem;
+        color: #42469d;
+        background-color: #fff;
+        border-radius: 2rem;
+        bottom: 0;
+        right: 0;
+    }
+    button:active{
+        outline: none;
+    }
+    button:focus{
+       outline: none;
+    }
+    button{
+        margin-top: 50vh
+    }
+    .d-table-cell {
+        color: black; /* Set the text color to black */
+      }
+    .bigger-heading {
+        font-size: 24px; /* Adjust the font size as needed */
+        color: black;
+    }
+    
+</style>
+
+
+
+
+
+
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+      
+        <!-- Modal Header -->
+        <div class="modal-header">
+            <h4 class="modal-title mx-auto bigger-heading">Track your Order</h4>
+        </div>
+        
+        <!-- Modal body -->
+        <div class="modal-body">
+           
+          <div class="progress-track">
+            {% if order.status == 'confirmed' %}
+              <ul id="progressbar">
+                  <li class="step0 active" id="step1">Order placed</li>
+                  <li class="step0  " id="step2">Shipped</li>
+                 
+                  <li class="step0 " id="step4">Delivered</li>
+              </ul>
+            {% endif %}
+          </div>
+          <div class="progress-track">
+            {% if order.status == 'Shipped' %}
+              <ul id="progressbar">
+                  <li class="step0 active " id="step1">Order placed</li>
+                  <li class="step0 active " id="step2">Shipped</li>
+                
+                  <li class="step0 " id="step4">Delivered</li>
+              </ul>
+            {% endif %}
+          </div>
+          <div class="progress-track">
+            {% if order.status == 'delivered' %}
+              <ul id="progressbar">
+                  <li class="step0 active" id="step1">Order placed</li>
+                  <li class="step0  active" id="step2">Shipped</li>
+                 
+                  <li class="step0 active" id="step4">Delivered</li>
+              </ul>
+            {% endif %}
+          </div>
+          
+          <div class="row">
+            <div class="col-9">
+              <div class="details d-table">
+                <div class="d-table-row">
+                  <div class="d-table-cell" >
+                    Shipped with-- Delhivery
+                  </div>
+                 
+                </div>
+                <div class="d-table-row">
+                  <div class="d-table-cell">
+                   
+                  </div>
+                  <div class="d-table-cell">
+                    Estimated Delivery- {{ estimated_delivery_date|date:"l, F d, Y" }}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+              
+            </div>
+          </div>      
+        </div>                  
+    </div>
+  </div>
+  </div>
+  <script>
+    // Get all the "View" buttons with the class "view-product"
+    const viewButtons = document.querySelectorAll('.view-product');
+
+    // Add click event listeners to each "View" button
+    viewButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Get the product ID from the data attribute
+            const productId = this.getAttribute('data-product-id');
+
+            // Update the modal header with the product ID
+            document.getElementById('product-id').textContent = productId;
+        });
+    });
+</script>

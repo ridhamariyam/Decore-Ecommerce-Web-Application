@@ -1,0 +1,152 @@
+{% extends 'admindashboard/baseforadmin.html' %}
+{% block title %}Order management{% endblock %}
+{% load static %}
+{% block content %}
+
+
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Orders List</h2>
+            
+        </div>
+        
+    </div>
+    <div class="card mb-4">
+        <header class="card-header">
+            <div class="row align-items-center">
+                <form method="POST">
+                    {% csrf_token %}
+                    <div class="col-lg-4 col-md-6 me-auto">
+                        <input type="text" placeholder="Search..." name="searched" class="form-control" />
+                    </div>
+                  </form>
+                <div class="col-md-3 col-12 me-auto mb-md-0 mb-3">
+                    
+                </div>
+              
+            </div>
+        </header>
+         <!-- card-header end// -->
+        
+       
+
+
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Tracking No:</th>
+                        <th>Payment mode</th> 
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Created Date</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>
+                            <a class="itemside" href="#">
+                                <div class="left">
+                                    {% for image in product.images.all|slice:":1" %}
+                                    <img src="{{image.image.url}}" class="img-sm img-thumbnail" alt="Item" />
+                                    {% endfor %}
+                                </div>
+                                <div class="info">
+                                    <h6 class="mb-0">{{order.tracking_no}}</h6>
+                                </div>
+                            </a>
+                        </td>
+                        <td>COD</td>
+                        <td>{{order.total_price}}</td>
+                        <td>
+                            {% if order.status == 'Pending' %}
+                                <span class="badge rounded-pill alert-warning" style="background-color: black; color: white;">{{ order.status }}</span>
+                            {% elif order.status == 'Out For Shipping' %}
+                                <span class="badge rounded-pill alert-warning" style="background-color: black; color: white;">{{ order.status }}</span>
+                            {% elif order.status == 'Completed' %}
+                                <span class="badge rounded-pill alert-success" style="background-color: black; color: white;">{{ order.status }}</span>
+                            
+                            {% elif order.status == 'Cancelled' %}
+                                <span class="badge rounded-pill alert-danger" style="background-color: black; color: white;">{{ order.status }}</span>
+                            {% else %}
+                                <span class="badge rounded-pill alert-danger" style="background-color: black; color: white;">{{ order.status }}</span>
+                            {% endif %}
+                        </td>
+                        
+                        
+                        <td>{{order.created_at}}</td>
+                        <td>
+            
+
+                            
+                            <div class="mb-4">
+                                {% if order.status != 'Cancelled' and order.status != 'Completed' %}
+                                <a href="{% url 'cancel_order' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: red; color: white; font-size: 10px; padding: 5px 10px;" onclick="return confirm('Are you sure you want to cancel this order?');">
+                                    <i class="material-icons md-delete_forever"></i> Cancel Order
+                                </a>
+                                {% endif %}
+                                {% if order.status != 'Cancelled' and order.status != 'Completed' %}
+                                    <a href="{% url 'shipped' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: red; color: white; font-size: 10px; padding: 5px 10px;" onclick="return confirm('Are you sure you want to ship this order?');">
+                                        <i class="material-icons md-delete_forever"></i> Out For Shipping
+                                    </a>
+    
+                                {% if order.status == 'Shipped' %}
+                                    <a href="{% url 'delivered' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: green; color: white; font-size: 10px; padding: 5px 10px;" onclick="return confirm('Are you sure you want to mark this order as delivered?');">
+                                        <i class="material-icons md-done"></i> Mark as Delivered
+                                    </a>
+                                
+                                    <a href="{% url 'completed' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: green; color: white; font-size: 10px; padding: 5px 10px;" onclick="return confirm('Are you sure you want to mark this order as delivered?');">
+                                        <i class="material-icons md-done"></i> completed
+                                    </a>
+                                    
+                                
+                                {% endif %}
+
+                                {% endif %}
+                            </div>
+
+                                
+                            
+                            
+                            <!-- Add more products as needed -->
+                        </ul>
+                            
+                            
+                            {% comment %} {% if order.status != 'Cancelled' and order.status != 'Completed' %} 
+                            <a href="{% url 'cancel_order' order.id %}" class="btn btn-lg font-sm rounded btn-brand" style="background-color: red; color: white;" onclick="return confirm('Are you sure you want to cancel this order?');">
+                                <i class="material-icons md-delete_forever"></i> Cancel Order
+                            </a>
+                            {% endif %}  {% endcomment %}
+                            
+                        </td>
+                    </tr>
+                   {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        
+
+
+        <!-- card-body end// -->
+    </div>
+    <!-- card end// -->
+
+</section>
+<script>
+    document.getElementById("completed-option").addEventListener("click", function() {
+        if (confirm('Are you sure you want to mark this order as Completed?')) {
+            // Change the order status to 'Completed'
+            order.status = 'Completed';
+            
+            // Submit the form to update the order status (if needed)
+            document.getElementById("status-form").submit();
+        }
+    });
+</script>
+
+
+
+{% endblock %}

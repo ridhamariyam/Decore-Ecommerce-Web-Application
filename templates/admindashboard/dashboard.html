@@ -1,0 +1,283 @@
+{% extends "admindashboard/baseforadmin.html" %}
+{% load static %}
+{% block title %} Dashboard {% endblock %}
+{% block content %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+<section class="content-main">
+  {% comment %} <a href="{% url 'clearorderitem' %}">clear all orderitem</a> {% endcomment %}
+  <div class="content-header">
+      <div>
+          <h2 class="content-title card-title">Dashboard</h2>
+          <p>Whole data about Decore.business is here</p>
+      </div>
+  </div>
+  <div class="row">
+      <div class="col-lg-3">
+        <div class="card card-body mb-4">
+          <article class="icontext">
+              <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                      <h6 class="mb-1 card-title">Revenue</h6>
+                      <span>₹{{total_revenue}}</span>
+                  </div>  
+                  <div class="text-right">
+                    <i class="text-primary material-icons md-monetization_on">monetization_on</i>
+                  </div>
+              </div>
+              <span >Excluding orders in transit</span>
+          </article>
+      </div>
+      </div>
+      <div class="col-lg-3">
+        <div class="card card-body mb-4">
+            <article class="icontext">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div>
+                        <h6 class="mb-1 card-title">Orders </h6>
+                        <span>{{total_orders}}</span>
+                    </div>  
+                    <div class="text-right">
+                        <i class="text-success material-icons md-local_shipping">local_shipping</i>
+                    </div>
+                </div>
+                <span >Excluding orders in transit</span>
+            </article>
+        </div>
+    </div>
+    <div class="col-lg-3">
+      <div class="card card-body mb-4">
+          <article class="icontext">
+              <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                      <h6 class="mb-1 card-title">Products </h6>
+                      <span>{{total_products}}</span>
+                  </div>  
+                  <div class="text-right">
+                    <h6 class="mb-1 card-title"><i class="text-warning material-icons md-qr_code">qr_code</i> </h6>
+                  </div>
+              </div>
+              <span >in Categories</span>
+          </article>
+      </div>
+    </div>
+      
+    <div class="col-lg-3">
+      <div class="card card-body mb-4">
+          <article class="icontext">
+              <div class="d-flex align-items-center justify-content-between">
+                  <div>
+                      <h6 class="mb-1 card-title">Monthly Earning</h6>
+                      {% for data in monthly_income %}
+                      <div>
+                          <h6 class="mb-1 card-title">{{ data.month|date:"F Y" }}</h6>
+                          <span>&#8377; {{ data.total_income }}</span>
+                      </div>
+                      {% endfor %}
+                  </div>
+                  <div class="text-right">
+                      <span class="icon icon-sm rounded-circle bg-info-light">
+                          <i class="text-info material-icons md-shopping_basket">shopping_basket</i>
+                      </span>
+                  </div>
+              </div>
+          </article>
+      </div>
+  </div>
+  </div>
+
+  <div class="row">
+    <div class="col-xl-8 col-lg-12">
+      
+        <div class="card mb-4">
+            <article class="card-body">
+                <h5 class="card-title">Sale statistics</h5>
+                <canvas id="salesChart" style="height: 300px;"></canvas>
+            </article>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-5">
+              <div class="card mb-4">
+                <article class="card-body">
+                    <h5 class="card-title">Orders based on Status</h5>
+                    <canvas id="orderChart" style="height: 300px;"></canvas>
+                </article>
+              </div>
+            </div> 
+            <div class="col-lg-7">
+              <div class="card mb-4">
+                <article class="card-body">
+                  <h5 class="card-title">Top Selling Products </h5>
+                  <canvas id="topSellingProductsChart" height="200"></canvas>
+                </article>
+              </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-12">
+      <div class="card mb-4">
+        <article class="card-body" style"aspect-ratio : 16/9">
+            <h5 class="card-title">Transactions</h5>
+            <canvas height="unset" id="transactionChart" style="height: 300px; aspect-ratio :16/9"></canvas>
+        </article>
+      </div>
+        <div class="card mb-4">
+          
+        </div>
+    </div>
+  </div>
+
+</section>
+
+<script>
+  const ctx = document.getElementById('salesChart').getContext('2d');
+
+  const salesChartData = {
+      labels: {{ months|safe }},
+      datasets: [
+      {
+          label: 'Total Sales',
+          data: {{ total_sales_data }},
+          backgroundColor: 'rgba(75, 192, 192, 0.2)',
+          borderColor: 'rgba(75, 192, 192, 1)',
+          borderWidth: 1,
+      },  
+      {
+        label: 'Total Visitors',
+        data: {{ total_visitors_data }},
+        fill: false,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        tension: 0.1
+      }
+      ],
+  };
+
+  new Chart(ctx, {
+      type: 'line',
+      data: salesChartData,
+      options: {
+          scales: {
+              y: {
+                  beginAtZero: true,
+              },
+          },
+      },
+  });
+</script>
+
+<script>
+  const transactionCtx = document.getElementById('transactionChart').getContext('2d');
+
+  const transactionChartData = {
+      labels: [{{ labels|safe }}],
+      datasets: [{
+          label: '# of Orders',
+          data: {{ data|safe }},
+          borderWidth: 1, 
+          backgroundColor: [
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+          ],
+          borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  };
+
+  new Chart(transactionCtx, {
+    type: 'doughnut',
+    data: transactionChartData,
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+      },
+  });
+  
+</script>
+
+<script>
+
+const orderCtx = document.getElementById('orderChart').getContext('2d');
+
+  const orderChartData = {
+      labels: {{ order_labels|safe }},
+      datasets: [{
+          label: '# of Orders',
+          data: {{order_data|safe }},
+          borderWidth: 1,
+          backgroundColor: [
+              'rgba(255, 99, 132, 0.6)',
+              'rgba(255, 206, 86, 0.6)',
+              'rgba(75, 192, 192, 0.6)',
+              'rgba(153, 102, 255, 0.6)',
+              'rgba(255, 159, 64, 0.6)',
+              'rgba(54, 162, 235, 0.6)',
+            ],
+          borderColor: [
+              'rgba(75, 192, 192, 1)',
+              'rgba(255, 99, 132, 1)',
+              'rgba(255, 206, 86, 1)',
+          ],
+          borderWidth: 1,
+      }],
+  };
+
+  new Chart(orderCtx, {
+    type: 'pie',
+    data: orderChartData, // Use orderChartData here
+    options: {
+        scales: {
+            y: {
+                beginAtZero: true,
+            },
+        },
+      },
+  });
+
+</script>
+
+<script>
+  // Assuming 'product_names' and 'sales_counts' are JavaScript arrays
+  const productNames = {{ product_names|safe }};
+  const salesCounts = {{ sales_counts|safe }};
+
+  const topSellingProductsCtx = document.getElementById('topSellingProductsChart').getContext('2d');
+
+  const topSellingProductsData = {
+    labels: productNames, // Use the JavaScript array here
+    datasets: [
+      {
+        label: 'Product sales',
+        data: salesCounts, // Use the JavaScript array here
+        backgroundColor: 'rgba(75, 192, 192, 0.2)',
+        borderColor: 'rgb(75, 192, 192)',
+        borderWidth: 1,
+      },
+    ],
+  };
+
+  new Chart(topSellingProductsCtx, {
+    type: 'bar',
+    data: topSellingProductsData,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true,
+        },
+      },
+    },
+  });
+</script>
+
+{% endblock content %}

@@ -1,0 +1,422 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+
+<!DOCTYPE html>
+<html>
+<head>
+   
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: black;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            text-align: center;
+        }
+        .logos {
+            display: flex;
+            justify-content:center;
+            margin: 20px 0;
+        }
+        .logos img {
+            height: 50px;
+            margin: 0 10px;
+        }
+        .section {
+            display: flex;
+            align-items: center;
+            justify-content:center;
+            margin: 50px 0;
+        }
+        .section img {
+            height: 50px;
+            margin-right: 20px;
+        }
+        .section h2 {
+            font-size: 24px;
+            margin: 0;
+        }
+		.empty-cart {
+			position: relative;
+			text-align: center;
+			height: 40vh; /* Adjust the height as needed */
+		}
+		
+		.empty-cart-content {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			text-align: center;
+		}
+		.custom-red-messages {
+			color: red; /* Set your desired text color */
+			/* Add other styling properties as needed */
+		}
+		
+			.coupon-savings {
+				color: red;
+			}
+
+			.coupon-title {
+				font-weight: bold;
+				/* Other styles for the coupon title */
+			}
+
+			.coupon-title {
+				font-size: 14px;  /* Adjust the size as needed */
+				font-weight: bold;
+				color: green;
+				
+				padding-left: 30px;
+ 
+				
+			}
+    </style>
+</head>
+<body>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'shop' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+								
+							</div>
+						</div>
+					</div>
+
+					
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</header>
+
+			<div id="site-main" class="site-main">
+				<div id="main-content" class="main-content">
+					<div id="primary" class="content-area">
+						<div id="title" class="page-title">
+							<div class="section-container">
+								<div class="content-title-heading">
+									<h1 class="text-title-heading">
+										Shopping Cart
+									</h1>
+								</div>
+								<div class="breadcrumbs">
+									<a href="index.html">Home</a><span class="delimiter"></span><a href="shop-grid-left.html">Shop</a><span class="delimiter"></span>Shopping Cart
+								</div>
+							</div>
+						</div>
+						{% comment %} -------------------------- {% endcomment %}
+						<div id="content" class="site-content" role="main">
+							<div class="section-padding">
+								{% if cart_items %}
+								<div class="section-container p-l-r">
+									<div class="shop-cart">	
+										<div class="row">
+											<div class="col-xl-8 col-lg-12 col-md-12 col-12">
+												
+													<div class="table-responsive">
+														
+														<table class="cart-items table" cellspacing="0">
+															<thead>
+																<tr>
+																	<th class="product-thumbnail">Product</th>
+																	<th class="product-price">Price</th>
+																	<th class="product-quantity">Quantity</th>
+																	<th class="product-subtotal">Subtotal</th>
+																	<th class="product-remove">&nbsp;</th>
+																</tr>
+															</thead>
+															<tbody>
+																
+																{% for cart_item in cart_items %}
+																	
+																	<tr class="cart-item">		
+																		<td class="product-thumbnail">
+																			<a href="shop-details.html">
+																				<img width="600" height="600" src="{{cart_item.variant.get_variant_image}}" class="product-image" alt="">
+																			</a>				
+																			<div class="product-name">
+																				<a href="shop-details.html">{{cart_item.product.name}}--{{cart_item.variant.material}}</a>								
+																			</div>
+																		</td>
+																		
+																			
+																			<td class="product-price">
+																				<span class="price"> &#8377;{{cart_item.variant.price}}</span>	
+																			</td>
+																			
+																		
+																			
+																		<td class="product-quantity">
+																			<div class="quantity">
+																					
+																				<button type="button" class="minus">
+																					<a href="{% url 'decrement_cart_item' cart_item.id %}">-</a>
+																				</button>
+																				<input type="number" class="qty" step="1" min="0" max="" name="quantity" value="{{cart_item.quantity}}" title="Qty" size="4" placeholder="" inputmode="numeric" autocomplete="off">
+																				<button type="button" class="plus">
+																					<a href="{% url 'increment_cart_item' cart_item.id %}">+</a>
+																				</button>
+																			</div>
+																		</td>
+																		<td class="product-subtotal">
+																			<span>&#8377;{{ cart_item.get_total_price }}</span>
+																		</td>
+																		<td class="bottom-cart">
+																			{% comment %} <a href="{% url 'delete_cart_item' cart_item.id %}" >xx</a>	 {% endcomment %}
+																			<a href="{% url 'delete_cart_item' cart_item.id %}" >Remove</a>
+																									
+																		</td>
+																	</tr>
+																{% endfor %}
+																<td colspan="6" class="actions">
+																	<div class="bottom-cart">
+																		<form method="post">
+																			{% csrf_token %}
+																		
+																		
+																			{% if cart.coupon %}
+																				<input type="hidden" name="cancel_coupon" value="true">
+																				<button type="submit" class="remove-button">Remove Coupon</button>
+
+																			{% else %}
+																				
+																				<div class="coupon">
+																					<input type="text" name="coupon" class="input-text" id="coupon-code"
+																						placeholder="{% if cart.coupon %}{{ cart.coupon.Coupon_code }}{% else %}Enter your coupon code{% endif %}">
+																					<button type="submit" class="apply-button">Apply Coupon</button>
+																				</div>
+																				
+																				
+																					
+																			{% endif %}
+
+																		
+																		</form>
+																		
+																	
+
+																	
+
+																	<!-- Modal -->
+																	<div class="modal fade" id="coupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																		<div class="modal-dialog modal-dialog-centered">
+																		<div class="modal-content">
+																			<div class="modal-header">
+																			<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+																			<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																			</div>
+																			<div class="modal-body">
+																				
+																				
+																			
+																			</div>
+																			   
+																			{% comment %} <div class="modal-footer">
+																			<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+																			<button type="button" class="btn btn-primary">Save changes</button>
+																			</div> {% endcomment %}
+																		</div>
+																		</div>
+																	</div>
+
+
+																		<a href="{% url 'shop' %}" class="button">Continue Shopping</a>
+																	</div>	
+																</td>
+																	
+																			
+																			
+																		
+																		</div>
+																		
+
+                                                                        <!-- Modal -->
+																		<div class="modal fade" id="coupon" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+																			<div class="modal-dialog modal-dialog-centered">
+																			<div class="modal-content">
+																				<div class="modal-header">
+																				<h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+																				<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+																				</div>
+																				<div class="modal-body">
+																					
+																				</div>
+																				   
+																			
+																			</div>
+																		</div>
+
+
+																			{% comment %} <a href="{% url 'shop' %}" class="button">Continue Shopping</a> {% endcomment %}
+																		</div>	
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+														
+													</div>
+												
+											</div>
+											
+											<div class="col-xl-4 col-lg-12 col-md-12 col-12">
+												<div class="cart-totals">
+													<h2>Cart totals</h2>
+													<div>
+														<div class="cart-subtotal">
+															<div class="title">Subtotal</div>
+															<div><span> &#8377;{{cart.get_total_price}}</span></div>
+														</div>
+														
+														
+{% comment %} 														
+														<div class="coupon-info">
+															{% if cart.coupon %}
+															<p>
+																<span class="coupon-title">Coupon Code:</span> {{ cart.coupon.Coupon_code }}
+																<br>
+																<span class="coupon-title">Coupon Savings:</span> {{ cart.coupon.discount_price }}
+																<form method="post" action="{% url 'remove_coupon' %}">
+																	{% csrf_token %}
+																	<button type="submit">Remove Coupon</button>
+																</form>
+															</p>
+															{% endif %}  
+														</div> {% endcomment %}
+														
+														<h3 class="coupon-title">offer Applied</h3>
+														<div class="cart-subtotal">
+															<div class="title">Offer Savings:</div>
+															<div><span> &#8377;{{discount}}</span></div>
+														</div>
+														
+
+														{% if cart.coupon %}
+														<h3 class="coupon-title">Coupon Applied</h3>
+
+
+														
+														<div class="cart-subtotal">
+															<div class="title">Coupon Savings:</div>
+															<div><span>- &#8377;{{ cart.coupon.discount_price }}</span></div>
+														</div>
+														{% endif %} 
+														      
+														
+														<div class="order-total">
+															<div class="title">Total</div>
+															<div><span>&#8377;{{total }}</span></div>
+														</div>
+													</div>
+													<div class="proceed-to-checkout">		
+														<a href="{% url 'checkout' %}" class="checkout-button button">
+															Proceed to checkout
+														</a>
+													</div>
+												</div>															
+											</div>
+											
+										</div>
+									</div>
+																	
+								</div>
+							</div>
+						</div><!-- #content -->
+						
+					</div><!-- #primary -->
+				</div><!-- #main-content -->
+				{% else %}
+				<div class="empty-cart">
+					<div class="empty-cart-content">
+						<img width="150" height="150" src="{% static 'media/box.png' %}" class="product-image" alt="">
+						<p><strong>Start Shopping now</strong></p>
+						<a href="{% url 'shop' %}" class="btn btn-primary">Shop Now</a>
+					</div>
+					<tr><strong>Your home is waiting for the best furniture & decor!</strong></tr>
+
+				</div>
+				
+			{% endif %}								
+			</div>
+			
+			
+			
+
+{% endblock %}
+			

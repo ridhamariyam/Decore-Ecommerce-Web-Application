@@ -1,0 +1,150 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Invoice - Decore.</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.4.0/jspdf.umd.min.js"></script>
+    <style>
+        /* Custom styles for the invoice */
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 32px;
+            color: #333;
+        }
+        
+        .invoice-details {
+            margin-bottom: 20px;
+        }
+        
+        .invoice-details p {
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            padding: 8px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .total-price {
+            margin-top: 20px;
+            text-align: right;
+            font-weight: bold;
+            font-size: 20px;
+        }
+
+        /* Adjust line height for table rows */
+        table tbody tr {
+            line-height: 1.2;
+        }
+        
+        /* Adjust line height for paragraphs */
+        p {
+            line-height: 1.2;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Order Invoice</h1><hr> <hr> 
+        <div style="text-align: right;color:black">
+           
+            <a href="{% url 'order_invoice' order.id%}"><button>Download as PDF</button></a>
+
+
+        </div>
+        <h2>Decore.</h2>
+        <div class="invoice-details">
+            <h3>Order ID: {{ order.id }}</h3>
+            <h3>Payment Mode: {{ order.payment_method }}</h3>
+            <h3>Tracking Number: {{ order.tracking_no }}</h3>
+            
+            <!-- Add any other relevant order details -->
+        </div>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Variant</th>
+                    <th>Subtotal</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for order_item in order_items %}
+                    <tr>
+                        <td>{{ order_item.product.product_name }}</td>
+                        <td> &#8377;{{ order_item.variant.price }}</td>
+                        <td>{{ order_item.quantity }}</td>
+                        <td>{{ order_item.variant}}</td>
+                        <td>{{ order_item.price }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <p class="total-price">Total Amount: {{ order.total_price }}</p>
+
+        <hr>
+
+        <h3>Thank you for shopping with Decore. We appreciate your business!</h3>
+        <h3>If you have any questions or need further assistance, please don't hesitate to contact our customer support.</h3>
+
+        <!-- Add any additional information or branding elements as desired -->
+        <h3>&copy; {{ year }} Decore. All rights reserved.</h3>
+    </div>
+    
+    
+</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<script>
+// Wait for the page to load before attaching the click event handler
+document.addEventListener("DOMContentLoaded", function() {
+    // Select the download button
+    const downloadButton = document.getElementById("downloadButton");
+
+    // Attach a click event handler to the button
+    downloadButton.addEventListener("click", function() {
+        // Create a new jsPDF instance
+        const pdf = new jsPDF();
+
+        // Get the HTML content of the entire page
+        const pageContent = document.body;
+
+        // Generate the PDF from the HTML content
+        pdf.html(pageContent, {
+            callback: function(pdf) {
+                // Save the PDF with a specific name (e.g., "downloaded-page.pdf")
+                pdf.save("downloaded-page.pdf");
+            },
+            x: 10,
+            y: 10,
+        });
+    });
+});
+</script>
+
+</html>
+
+
+
+{% endblock %}

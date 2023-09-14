@@ -1,0 +1,436 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+
+{% block title %} Address {% endblock %}
+
+{% block content %}
+
+
+<style>
+    .default-form-box {
+        margin-bottom: 20px; /* Add your preferred spacing value */
+    }
+    .profile-section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-icon img {
+        width: 170px;
+        height: 170px;
+        border-radius: 15%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .default-form-box label{
+        max-width : 200px
+    }
+    input:disabled {
+        background-color: #f1f1f1; /* Grey background color */
+        color: #888; /* Grey text color */
+    }
+    .messages .success {
+        color: blue; /* Change this color to your preferred shade of blue */
+    }
+    .messages .error {
+        color: blue;
+    }
+    
+        .change-password-link {
+            color: grey; /* Default color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth transition effect */
+        }
+    
+        .change-password-link:hover {
+            color: black; /* Color on hover */
+        }
+    
+        .grey-box {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          }
+          
+          .grey-box-content {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: darkslategrey;
+            color: wheat;
+        }
+        
+          .d-flex.justify-content-end button {
+            margin-right: 10px;
+          }
+          
+        .center-image {
+            display: block;
+            margin: 0 auto;
+            filter: sepia(100%); /* Change the percentage to adjust the level of sepia */
+        }
+        .add-address-button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .add-address-button:hover {
+            background-color: #333; /* Darken the color on hover */
+        }
+        .bigger-text {
+            font-size: 19px; /* Adjust the font size as needed */
+        }
+        .default-form-box{
+            
+        }
+    
+        .button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button button:hover {
+            background-color: #0056b3;
+        }
+
+        
+        .show-form .account_form {
+            display: block; /* Show the form when the class is present */
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .add-address-link {
+            font-weight: bold;
+        }
+        .nice-button {
+            display: inline-block;
+            background-color: grey;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .address-box {
+            width: 500px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Style for address details */
+        .address-details {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .circle-selection {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .circle-selected {
+            border-color: #007bff;
+        } 
+
+      
+    </style>
+
+
+
+
+
+
+</style>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+
+   
+        
+    </header>
+<div class="container">
+    <header class="myaccount-header" id="account-section-title-block">
+        <h1 id="account-section-heading"></h1>
+        <p id="account-section-subheading"></p>
+    </header>
+
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title" style="color: white;">MY ADDRESS</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="customer-login">
+        <div class="container">
+                         
+                                    <a id="add-nav-link-03"  href="{% url 'address' %}"  data-toggle="addressTab" data-src="?tab=address-book" class="dashboard__list__link">
+                                        <figure class="account-logo"><svg class="svg-heart">
+                    <use xlink:href="/_ui/responsive/landmark/img/common.svg#lmico-ic_addressbook"></use>
+                    </svg>
+                    </figure>
+                                        <h2 class="dashboard__list__link__title">Address Book</h2>
+                                        <p class="dashboard__list__link__text">Manage your shipping and billing addresses.</p>
+                                    </a>
+                                    {% if user_addresses %} 
+                                    {% for address in user_addresses %}
+                                    <div class="account_form register" data-aos="fade-up" data-aos-delay="200">
+                                        <div>
+                                           
+                                            
+                                            <div style="text-align: center;">
+                                                <div class="address-box">
+                                                    <h2>Your Shipping Address</h2>
+                                                    <div class="address-details">
+                                                        <p><strong>Full Name:</strong> {{ address.full_name }}</p>
+                                                        <p><strong>Phone Number:</strong> {{ address.phone_number }}</p>
+                                                        <p><strong>Pincode:</strong> {{ address.pincode }}</p>
+                                                        <p><strong>City:</strong> {{ address.city }}</p>
+                                                        <p><strong>State:</strong> {{ address.state }}</p>
+                                                        <p><strong>Building Name:</strong> {{ address.building_name }}</p>
+                                                        <p><strong>Street Name:</strong> {{ address.street_name }}</p>
+                                                        <p><strong>Landmark:</strong> {{ address.landmark }}</p>
+                                                        <!-- Display other address fields here -->
+                                                        <a href="{% url 'update_address' address.id %}" class="nice-button">
+                                                            Update address
+                                                        </a>
+                                                        
+                                                        <!-- Display address details here -->
+                                                        <button class="delete-address-button nice-button" data-address-id="{{ address.id }}">
+                                                            Delete Address
+                                                        </button>
+                                                            
+                                                        
+                                                                                                                                                                      
+                                                    </div>
+                                                   
+                                                </div>
+                                                {% if forloop.counter == 1 %}
+                                                <a href="{% url 'add_address' %}" class="nice-button">
+                                                    Add Address
+                                                   </a>
+                                                  
+                                                {% endif %}
+                                                
+                                              
+                                            {% endfor %}
+                                            {% else %}
+                                            <!-- Display image and option to add address -->
+                                             <!-- Display image and option to add address -->
+                                            <div style="text-align: center;">
+                                                <img src="/static/media/address.png" width="150" height="150" alt="Address Icon" class="center-image">
+                                              
+                                                <p class="bigger-text"></p>
+        
+        <!-- Display the "Add Address" button only once -->
+                                                <a id="addAddressLink" href="{% url 'add_address' %}" class="nice-button">
+                                                 Add Address
+                                             </a>
+                                            </div>
+                                            {% endif %}
+                                    
+                                            <!-- Address Form -->
+                                            <div id="addressForm" style="display: none;">
+                                                <div class="address-box">
+                                                    <form id="addAddressForm" action="{% url 'add_address' %}" method="post">
+                                                        {% csrf_token %}
+                                                        <!-- Address form fields here -->
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="fullname">Full Name</label>
+                                                            <input class="col-6" type="text" id="fullname" name="fullname" placeholder="Enter your Full name" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="phone_number">Phone number</label>
+                                                            <input class="col-6" type="text" id="phone_number" name="phone_number" value="+91">
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="pincode">Pincode</label>
+                                                            <input class="col-6" type="text" id="pincode" placeholder="Enter your Pincode" name="pincode" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="city">City</label>
+                                                            <input class="col-6" type="text" id="city" placeholder="Enter your city" name="city" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="state">State</label>
+                                                            <input class="col-6" type="text" id="state" placeholder="Enter your state" name="state" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="building_name">Building name</label>
+                                                            <input class="col-6" type="text" id="building_name" placeholder="Enter your Building name" name="building_name" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="street_name">Street name</label>
+                                                            <input class="col-6" type="text" id="street_name" placeholder="Enter your streetname" name="street_name" value="" required>
+                                                        </div>
+                                                        <div class="default-form-box">
+                                                            <label class="form-label col-6" for="landmark">Landmark</label>
+                                                            <input class="col-6" type="text" id="landmark" placeholder="Enter your Landmark" name="landmark" value="" required>
+                                                        </div>
+                                                        <!-- Other address form fields here -->
+                                                        <button class="submit-button" type="submit">Submit Address</button>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <!-- Include jQuery (use a valid path or CDN) -->
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                    
+                                    <script>
+                                        $(document).ready(function() {
+                                            $("#addAddressLink").click(function(e) {
+                                                e.preventDefault();
+                                                console.log("Add Address button clicked."); // Check if this message is logged
+                                                $("#addressForm").toggle();
+                                            });
+                                        });
+                                        document.addEventListener('DOMContentLoaded', function () {
+                                            const deleteButtons = document.querySelectorAll('.delete-address-button');
+                                        
+                                            deleteButtons.forEach(button => {
+                                                button.addEventListener('click', function (event) {
+                                                    event.preventDefault();
+                                                    const addressId = button.getAttribute('data-address-id');
+                                                    deleteAddress(addressId);
+                                                });
+                                            });
+                                        
+                                            function deleteAddress(addressId) {
+                                                fetch(`/delete_address/${addressId}/`, {
+                                                    method: 'POST',
+                                                    headers: {
+                                                        'X-CSRFToken': getCookie('csrftoken'), // Get CSRF token from cookies
+                                                    },
+                                                })
+                                                .then(response => response.json())
+                                                .then(data => {
+                                                    console.log(data.message); // Handle response as needed
+                                                    // You might want to update the UI here, e.g., remove the deleted address from the page
+                                                })
+                                                .catch(error => {
+                                                    console.error('Error:', error);
+                                                });
+                                            }
+                                        
+                                            function getCookie(name) {
+                                                const value = `; ${document.cookie}`;
+                                                const parts = value.split(`; ${name}=`);
+                                                if (parts.length === 2) return parts.pop().split(';').shift();
+                                            }
+                                        });
+
+                                        
+                                        
+                                    </script>
+                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+                                        </div>
+                                    </div>
+                                    
+    
+
+{% endblock %}

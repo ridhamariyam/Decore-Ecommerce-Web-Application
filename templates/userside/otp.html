@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Meta Data -->
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OTP Verification</title>
+
+  <!-- Favicon -->
+  
+
+  <!-- Dependency Styles -->
+  <link rel="stylesheet" href="{% static 'libs/bootstrap/css/bootstrap.min.css' %}" type="text/css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+	<!-- Site Stylesheet -->
+  <!-- ... Other stylesheets ... -->
+
+  <!-- Site Stylesheet -->
+  <link rel="stylesheet" href="{% static 'assets/css/app.css' %}" type="text/css">
+  <link rel="stylesheet" href="{% static 'assets/css/responsive.css' %}" type="text/css">
+
+  <!-- Google Web Fonts -->
+  <!-- ... Google Fonts links ... -->
+</head>
+
+<body style="background-color: aliceblue;">
+  
+  <div class="container height-100 d-flex justify-content-center align-items-center" style="background-color: aliceblue;">
+    <div class="position-relative">
+      <div class="card p-2 text-center">
+        <form action="{% url 'register' %}" method="POST">
+          {% csrf_token %}
+          <h6 style="color: black;">
+            Please enter the one-time password <br />
+            to verify your account
+        </h6>
+        <div><span>We've sent a verification code to</span><small>{{ user_email }}</small></div>
+        <div id="otp" >
+          <input class="m-2 form-control rounded" type="text" id="first" name="otp"/>
+          <input  type="hidden" value="{{ email }}"name="email"/>
+        </div>
+        <div class="mt-4">
+          <button class="btn btn-danger px-4 validate" type="submit">Validate</button>
+        </div>
+      </form>
+      </div>
+      <div class="card-2">
+        <div class="content d-flex justify-content-center align-items-center">
+          <span>Didn't get the code</span>
+          <a href="#" class="text-decoration-none ms-3">Resend(1/3)</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Dependency Scripts -->
+  <script src="{% static 'libs/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'libs/bootstrap/js/bootstrap.min.js' %}"></script>
+  <!-- ... Other scripts ... -->
+
+  <!-- Custom Script -->
+  <script>
+   
+    function validateOTP() {
+      const otpElements = document.querySelectorAll("#otp input");
+      let otp = "";
+      otpElements.forEach((element) => {
+        otp += element.value;
+      });
+      if (otp === "123456") {
+        alert("OTP is valid. Account verified!");
+        
+        alert("Invalid OTP. Please try again.");
+        otpElements.forEach((element) => {
+      element.value = "";
+        });
+      }
+    }
+
+    function moveToNext(input, nextInputID) {
+      const maxLength = parseInt(input.getAttribute('maxlength'));
+      const inputLength = input.value.length;
+      if (inputLength === maxLength) {
+        const nextInput = document.getElementById(nextInputID);
+        if (nextInput) {
+          nextInput.focus();
+        }
+      }
+    }
+
+    function resendOTP() {
+     
+      alert("OTP resent successfully!");
+    }
+
+    
+    const validateButton = document.querySelector(".validate");
+    if (validateButton) {
+      validateButton.addEventListener("click", validateOTP);
+    }
+
+    const resendLink = document.querySelector(".card-2 a");
+    if (resendLink) {
+      resendLink.addEventListener("click", resendOTP);
+    }
+  </script>
+</body>
+
+</html>

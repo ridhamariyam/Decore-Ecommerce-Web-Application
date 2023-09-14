@@ -1,0 +1,231 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+{% block title %} My Cart {% endblock %}
+{% block content %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <style>
+   
+    
+
+        .button button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button button:hover {
+            background-color: #0056b3;
+        }
+
+        
+        .show-form .account_form {
+            display: block; /* Show the form when the class is present */
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .add-address-link {
+            font-weight: bold;
+        }
+        .nice-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .label {
+            font-weight: bold;
+        }
+        
+        /* Rest of your existing CSS */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f0f0f0;
+        }
+        
+        .order-summary {
+            background-color: #fff;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+        }
+        
+        .order-details {
+            margin-bottom: 20px;
+        }
+        
+        .detail {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .items {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .items th,
+        .items td {
+            padding: 10px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .items th {
+            background-color: white;
+        }
+        .wallet-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 50vh; /* This makes the section take up the full viewport height */
+            text-align: center; /* Center-align text within the section */
+        }
+        
+        .wallet-info h2 {
+            font-size: 24px; /* Adjust the font size as needed */
+            margin-bottom: 20px; /* Add spacing below the heading */
+        }
+        
+        .balance p {
+            font-size: 18px; /* Adjust the font size as needed */
+            font-weight: bold; /* Make the balance text bold */
+        }
+</style>
+</head>
+<body>
+
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+                                          
+    </header>
+<body>
+    <div class="container">
+        <header class="myaccount-header" id="account-section-title-block">
+            <h1 id="account-section-heading"></h1>
+            <p id="account-section-subheading"></p>
+        </header>
+    
+        <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+            <div class="breadcrumb-wrapper">
+                <div class="row">
+                    <div class="col-12">
+                        <h3 class="breadcrumb-title" style="color: white;">WALLET</h3>
+                    </div>
+                </div>
+            </div>
+          
+        </div>
+        <main class="details-container centered-section d-flex justify-content-center">
+            <div class="white-gradient">
+                <header>
+                    <h1>Invite Friends & Earn</h1>
+                    <h3 class="refer-meta-data">Invite Friends & Earn ₹ 50 AJIO Points For Every Friend</h3>
+                </header>
+                <div class="hero-img-container">
+                    <img src="https://assets.ajio.com/medias/sys_master/root/h4b/h2e/31756468650014/Referral-Image-Desktop.jpg" loading="eager">
+                </div>
+                <div class="referral-code">
+                </form>
+                {% if ref_link %}
+                    <h2>Referral link: {{ ref_link }}</h2>
+                {% else %}
+                    <form method="post" action="{% url 'refer' %}">
+                        {% csrf_token %}
+                        <a href="{% url 'generate_link' %}"> Referral Link</a>
+                    </form>
+                {% endif %}
+                    
+                    
+                    <button type="button"><img class="referral-sm-icons" src="https://assets.ajio.com/static/img/referral-copy-sm.png"><span>copy</span></button>
+                    <button type="button"><img class="referral-sm-icons" src="https://assets.ajio.com/static/img/referral-share-sm.png"><span>share</span></button>
+                </div>
+            </div>
+        </main>
+
+{% endblock %}

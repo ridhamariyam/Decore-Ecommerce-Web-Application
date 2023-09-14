@@ -1,0 +1,168 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+
+{% block title %} Profile {% endblock %}
+
+{% block content %}
+
+
+<style>
+    .default-form-box {
+        margin-bottom: 20px; /* Add your preferred spacing value */
+    }
+    .profile-section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-icon img {
+        width: 170px;
+        height: 170px;
+        border-radius: 15%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .default-form-box label{
+        max-width : 200px
+    }
+    input:disabled {
+        background-color: #f1f1f1; /* Grey background color */
+        color: #888; /* Grey text color */
+    }
+    .messages .success {
+        color: blue; /* Change this color to your preferred shade of blue */
+    }
+    .messages .error {
+        color: blue;
+    }
+    
+        .change-password-link {
+            color: grey; /* Default color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth transition effect */
+        }
+    
+        .change-password-link:hover {
+            color: black; /* Color on hover */
+        }
+        body{background:white !important}
+        .coupon{border-radius: 12px;box-shadow: 5px 8px 10px #d6d5d533}body{background: white}
+        .code:hover{background: green;color: #fff;cursor: pointer}
+    
+
+
+    
+</style>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+
+   
+        
+    </header>
+<div class="container">
+    <header class="myaccount-header" id="account-section-title-block">
+        <h1 id="account-section-heading"></h1>
+        <p id="account-section-subheading"></p>
+    </header>
+
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title" style="color: white;">Coupons </h3>
+                </div>
+            </div>
+        </div>
+    </div>
+     
+    {% for coupon_show in coupon_shows %}
+    <div class="container mt-5">
+        <div class="d-flex justify-content-center row">
+          <div class="col-md-6">
+            <div class="coupon p-3 bg-white">
+              <div class="row no-gutters">
+                <div class="col-md-4 border-right">
+                  <!-- Add an input field for minimum price -->
+                  <div class="form-group">
+                    <label for="min-price">Minimum Price:</label>
+                    <span>₹{{coupon_show.minimum_amount}}</span>
+                    <label for="min-price">Expiry on:</label>
+                    <span>{{coupon_show.end_date}}</span>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div>
+                    <div class="d-flex flex-row justify-content-end off">
+                      <h1>₹{{coupon_show.discount_price}}</h1><span>OFF</span>
+                    </div>
+                    <div class="d-flex flex-row justify-content-between off px-3 p-2">
+                      <span>Promo code:</span><span class="border border-success px-3 rounded code">{{coupon_show.Coupon_code}}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    {% endfor %}  
+{% endblock %}

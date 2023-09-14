@@ -1,0 +1,318 @@
+{% extends "userside/profile_base.html" %}
+{% load static %}
+
+{% block title %} Address {% endblock %}
+
+{% block content %}
+
+
+<style>
+    .default-form-box {
+        margin-bottom: 20px; /* Add your preferred spacing value */
+    }
+    .profile-section {
+        display: flex;
+        align-items: center;
+    }
+    
+    .profile-icon img {
+        width: 170px;
+        height: 170px;
+        border-radius: 15%;
+        object-fit: cover;
+        margin-right: 20px;
+    }
+
+    .default-form-box label{
+        max-width : 200px
+    }
+    input:disabled {
+        background-color: #f1f1f1; /* Grey background color */
+        color: #888; /* Grey text color */
+    }
+    .messages .success {
+        color: blue; /* Change this color to your preferred shade of blue */
+    }
+    .messages .error {
+        color: blue;
+    }
+    
+        .change-password-link {
+            color: grey; /* Default color */
+            text-decoration: none; /* Remove underline */
+            transition: color 0.3s; /* Smooth transition effect */
+        }
+    
+        .change-password-link:hover {
+            color: black; /* Color on hover */
+        }
+    
+        .grey-box {
+            background-color: #f5f5f5;
+            border-radius: 8px;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+          }
+          
+          .grey-box-content {
+            padding: 20px;
+            margin-bottom: 20px;
+            background-color: darkslategrey;
+            color: wheat;
+        }
+        
+          .d-flex.justify-content-end button {
+            margin-right: 10px;
+          }
+          
+        .center-image {
+            display: block;
+            margin: 0 auto;
+            filter: sepia(100%); /* Change the percentage to adjust the level of sepia */
+        }
+        .add-address-button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+    
+        .add-address-button:hover {
+            background-color: #333; /* Darken the color on hover */
+        }
+        .bigger-text {
+            font-size: 19px; /* Adjust the font size as needed */
+        }
+        .default-form-box{
+            
+        }
+    
+        .button {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .button button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .button button:hover {
+            background-color: #0056b3;
+        }
+
+        
+        .show-form .account_form {
+            display: block; /* Show the form when the class is present */
+        }
+        .submit-button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+    
+        .submit-button:hover {
+            background-color: #0056b3;
+        }
+        .add-address-link {
+            font-weight: bold;
+        }
+        .nice-button {
+            display: inline-block;
+            background-color: grey;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            cursor: pointer;
+          }
+          .address-box {
+            width: 500px;
+            margin: 20px auto;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        /* Style for address details */
+        .address-details {
+            margin-top: 10px;
+            text-align: left;
+        }
+
+        .circle-selection {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #ccc;
+            margin-right: 10px;
+            cursor: pointer;
+        }
+
+        .circle-selected {
+            border-color: #007bff;
+        } 
+
+      
+    </style>
+
+
+
+
+
+
+</style>
+<body>
+    <body class="shop">
+		<div id="page" class="hfeed page-wrapper">
+			<header id="site-header" class="site-header header-v1 absolute">
+				<div class="header-mobile">
+					<div class="section-padding">
+						<div class="section-container">
+							<div class="row">
+							
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-desktop">
+					<div class="header-wrapper">
+						<div class="section-padding">
+							<div class="section-container p-l-r">
+								<div class="row">
+									<div class="col-xl-3 col-lg-2 col-md-12 col-sm-12 col-12 header-left">
+										<div class="site-logo">
+											<style>
+												/* Define a CSS rule to increase the font size of the <text> element */
+												a text {
+												  font-size: 24px; /* Adjust the value to your desired font size */
+												}
+											  </style>
+											  
+											  <a href="index.html">
+												<text>DECORE.</text>
+											  </a>
+										</div>
+									</div>
+
+									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 col-12 text-center header-center">
+										<div class="site-navigation">
+											<nav id="main-navigation">
+												<ul id="menu-main-menu" class="menu">
+													<li class="level-0 menu-item">
+														<a href="{% url 'home' %}"><span class="menu-item-text">Home</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="{% url 'home' %}"> <span class="menu-item-text">Shop</span></a>
+														
+													</li>
+													<li class="level-0 menu-item ">
+														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														
+													</li>
+													
+													<li class="level-0 menu-item">
+														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													</li>
+												</ul>
+											</nav>
+										</div>
+									</div>
+
+
+   
+        
+    </header>
+<div class="container">
+    <header class="myaccount-header" id="account-section-title-block">
+        <h1 id="account-section-heading"></h1>
+        <p id="account-section-subheading"></p>
+    </header>
+
+    <div class="breadcrumb-section" style="background: linear-gradient(to bottom, #000000, #333333);">
+        <div class="breadcrumb-wrapper">
+            <div class="row">
+                <div class="col-12">
+                    <h3 class="breadcrumb-title" style="color: white;">MY ADDRESS</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% comment %} <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header">{{ address.full_name }}</div> {% endcomment %}
+
+                    <div class="card-body">
+                        <form method="POST" class="default-form-box">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="fullname">Full Name</label>
+                                <input type="text" name="fullname" id="fullname" class="form-control" value="{{ address.full_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Phone number</label>
+                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ address.phone_number }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Pincode</label>
+                                <input type="text" name="pincode" id="phone_number" class="form-control" value="{{ address.pincode }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">City</label>
+                                <input type="text" name="city" id="phone_number" class="form-control" value="{{ address.city }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">State</label>
+                                <input type="text" name="state" id="phone_number" class="form-control" value="{{ address.state }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Building name</label>
+                                <input type="text" name="building_name" id="phone_number" class="form-control" value="{{ address.building_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Street name</label>
+                                <input type="text" name="street_name" id="phone_number" class="form-control" value="{{ address.street_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="phone_number">Landmark</label>
+                                <input type="text" name="landmark" id="phone_number" class="form-control" value="{{ address.landmark }}">
+                            </div>
+                            <!-- Add other address fields here -->
+                            
+                            <div class="button">
+                                <button type="submit" class="submit-button">Update Address</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% endblock %}
