@@ -226,6 +226,7 @@ def checkout(request):
             cart.coupon = None  # Remove the coupon
             cart.save()
             messages.success(request, 'Coupon removed successfully')
+            
     for cart_item in cart_items:
         # Access the 'quantity' attribute of the cart item
         quantity = cart_item.quantity

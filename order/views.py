@@ -257,10 +257,18 @@ def place_order_razorpay(request):
             order_item.price = cart_item.get_total_price()  
             order_item.quantity = cart_item.quantity
             order_item.save()
+            offer = 0
+            if cart_item.product.offer:
+                offer += ((cart_item.variant.price - cart_item.variant.get_offer_price()) * cart_item.quantity)
 
             
             cart_item.product.stock -= cart_item.quantity
             cart_item.product.save()
+
+        new_order.total_price = new_order.total_price - offer
+        if user_cart.coupon:
+            new_order.total_price =  new_order.total_price - user_cart.coupon.discount_price
+        new_order.save()    
         
         user_cart.delete()
 
