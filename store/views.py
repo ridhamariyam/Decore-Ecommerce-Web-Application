@@ -24,13 +24,23 @@ from .models import Product,ProductVariant,Image
 from django.http import JsonResponse
 from datetime import date
 from django.utils import timezone
+from django.http import Http404
+
+
+
+
+def custom_404_page(request, exception):
+    return render(request, '404.html', status=404)
 
 
 
 def home(request):
     products = Product.objects.filter(is_available=True)
+    
+    latest_products = ProductVariant.objects.filter(is_available=True).order_by('-pk')[:4]
     context = {
         'products': products,
+        'latest_products':latest_products
     }
     return render(request, 'userside/home.html', context)
 
@@ -48,10 +58,33 @@ def shop(request,category_slug=None):
 
         products =  Product.objects.all().filter(is_available=True)
 
-    products = ProductVariant.objects.all()    
+    # product = Product.objects.all()
+    
+    products = ProductVariant.objects.filter(stock_quantity__gt=0)
 
+
+    latest_products = ProductVariant.objects.filter(is_available=True).order_by('-pk')[:2]
+    print('--------------',)
+    
+    
+    sort = request.GET.get('sort')
+    if sort == 'latest':
+        products1 = ProductVariant.objects.filter(is_available=True).order_by('-pk')
+    if sort == 'low_to_high':
+        products1 = ProductVariant.objects.all().order_by('-price')
+    if sort == 'price_high_to_low':
+        products1 = ProductVariant.objects.all().order_by('price')
+    else:
+        products1 = ProductVariant.objects.all()
+    
+    
     context= {
         'products':products,
+        'latest_products':latest_products,
+        'products1':products1
+        
+      
+       
     }
 
     return render(request,'userside/shop.html',context)
@@ -59,11 +92,12 @@ def shop(request,category_slug=None):
 
 
 
-
 def single_page(request,singel_id):
     pr=Product.objects.get(id=singel_id)
+    images=Image.objects.all()
     context={
         'product':pr,
+        'images':images
     }
 
     return render(request,'userside/productdetails.html',context)
@@ -187,3 +221,5 @@ def couponlist(request):
     not_expired_coupons = Coupon.objects.filter(end_date__gte=current_datetime)
 
     return render(request,'userside/couponlist.html',{'coupon_shows':not_expired_coupons})
+
+

@@ -34,11 +34,11 @@ def orderview(request):
 
 def order_detail(request):
 
-
+    
 
     ord=Order_product.objects.filter(order__user=request.user,).order_by('-order__created_at')
-    print(ord,'--------------------------')
-    return render(request, 'userside/sum.html',{'order':ord})
+    total = Cart.objects.all()
+    return render(request, 'userside/sum.html',{'order':ord,'total':total})
 
 
 
@@ -101,11 +101,19 @@ def place_order(request):
             
             print('orderitem.........................................',order_item)
             order_item.save()
+            offer = 0
+            if cart_item.product.offer:
+                offer += ((cart_item.variant.price - cart_item.variant.get_offer_price()) * cart_item.quantity)
+        
 
             
             cart_item.product.stock -= cart_item.quantity
             cart_item.product.save()
         
+        new_order.total_price = new_order.total_price - offer
+        if user_cart.coupon:
+            new_order.total_price =  new_order.total_price - user_cart.coupon.discount_price
+        new_order.save()
         user_cart.delete()
 
         new_order.status = 'confirmed'
@@ -113,7 +121,7 @@ def place_order(request):
         
         context = {'new_order': new_order}
         return render(request, 'userside/summary.html', context)
-    print('-----------')
+    
     # Retrieve user addresses
     user_addresses = Address.objects.filter(user=request.user)
     return render(request, 'userside/checkout.html', {'user_addresses': user_addresses})
@@ -243,14 +251,11 @@ def place_order_razorpay(request):
         
         for cart_item in cart_items:
             order_item = Order_product() 
-            print('orderitem.........................................',order_item)
             order_item.order = new_order
             order_item.product = cart_item.product
             order_item.variant = cart_item.variant
             order_item.price = cart_item.get_total_price()  
             order_item.quantity = cart_item.quantity
-            
-            print('orderitem.........................................',order_item)
             order_item.save()
 
             

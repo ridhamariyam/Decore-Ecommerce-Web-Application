@@ -99,7 +99,7 @@
 														
 													</li>
 													<li class="level-0 menu-item ">
-														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														<a href="{% url "home" %}"><span class="menu-item-text">Blog</span></a>
 														
 													</li>
 													
@@ -157,24 +157,19 @@
                             {% csrf_token %}
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="username">Username</label>
-                                <input class="col-6" type="text" id="username" name="username" value="{{user.username}}" required>
+                                <input class="col-6" type="text" id="username" name="username" value="{{ user.username }}" required>
                             </div>
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="first_name">First name</label>
-                                <input class="col-6" type="text" id="first_name" name="first_name" value="{{user.first_name}}" required>
+                                <input class="col-6" type="text" id="first_name" name="first_name" value="{{ user.first_name }}" required>
                             </div>
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="last_name">Last name</label>
-                                <input class="col-6" type="text" id="last_name" name="last_name" value="{{user.last_name}}" required>
+                                <input class="col-6" type="text" id="last_name" name="last_name" value="{{ user.last_name }}" required>
                             </div>
-                            <div class="default-form-box">
-                                <label class="form-label col-6" for="email">Email</label>
-                                <input class="col-6" type="email" id="email" name="email" value="{{user.email}}" required disabled>
-                            </div>
-                            <!-- Other profile fields here -->
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="phone_number">Phone number</label>
-                                <input class="col-6" type="text" id="phone_number" name="phone_number" value="{{user.phone_number}}">
+                                <input class="col-6" type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
                             </div>
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="last_name">Password</label>
@@ -182,31 +177,50 @@
                             </div>
                             
                             <div id="passwordChangeFields" style="display: none;">
-                    <div class="default-form-box">
-                        <label class="form-label col-6" for="current_password">Current Password</label>
-                        <input class="col-6" type="password" id="current_password" name="current_password" required>
-                    </div>
-                    <div class="default-form-box">
-                        <label class="form-label col-6" for="new_password">New Password</label>
-                        <input class="col-6" type="password" id="new_password" name="new_password" required>
-                    </div>
-                    <div class="default-form-box">
-                        <label class="form-label col-6" for="confirm_password">Confirm Password</label>
-                        <input class="col-6" type="password" id="confirm_password" name="confirm_password" required>
-                    </div>
-                </div>
-                            {% if messages %}
-                                <ul class="messages">
-                                    {% for message in messages %}
-                                        <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                    {% endfor %}
-                                </ul>
-                            {% endif %}
-                            <div class="login_submit">
-                                <button class="btn btn-md btn-black-default-hover" type="submit">Save Changes</button>
+                                <div class="default-form-box">
+                                    <label class="form-label col-6" for="current_password">Current Password</label>
+                                    <input class="col-6" type="password" id="current_password" name="current_password" required>
+                                </div>
+                                <div class="default-form-box">
+                                    <label class="form-label col-6" for="new_password">New Password</label>
+                                    <input class="col-6" type="password" id="new_password" name="new_password" required>
+                                </div>
+                                <div class="default-form-box">
+                                    <label class="form-label col-6" for="confirm_password">Confirm Password</label>
+                                    <input class="col-6" type="password" id="confirm_password" name="confirm_password" required>
+                                </div>
                             </div>
+                        
+                            <button class="btn btn-md btn-black-default-hover" id="changePasswordButton" type="button">Save Changes</button>
                         </form>
-                       
+                        
+                        {% if messages %}
+                            <ul class="messages">
+                                {% for message in messages %}
+                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                        
+                        <script>
+                            document.addEventListener("DOMContentLoaded", function () {
+                                const changePasswordButton = document.getElementById("changePasswordButton");
+                                const changePasswordLink = document.getElementById("changePasswordLink");
+                                const passwordChangeFields = document.getElementById("passwordChangeFields");
+                        
+                                if (changePasswordButton && changePasswordLink && passwordChangeFields) {
+                                    changePasswordLink.addEventListener("click", function () {
+                                        // Toggle the visibility of the password change fields
+                                        passwordChangeFields.style.display = passwordChangeFields.style.display === "none" ? "block" : "none";
+                                    });
+                        
+                                    changePasswordButton.addEventListener("click", function () {
+                                        // Submit the form when the button is clicked
+                                        document.getElementById("profileForm").submit();
+                                    });
+                                }
+                            });
+                        </script>
                         <script>
                             document.addEventListener('DOMContentLoaded', function () {
                                 const changePasswordLink = document.querySelector('#changePasswordLink');

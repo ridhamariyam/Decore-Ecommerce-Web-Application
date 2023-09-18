@@ -20,6 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store.urls')),
@@ -28,10 +29,6 @@ urlpatterns = [
     path('',include('order.urls')),
     path('',include('accounts.urls')),
     path('',include('offer.urls')),
-    # path('',include('wallet.urls')),
-    path('',include('wishlist.urls')),
-
-    
     path("payment/", include("payment.urls")),
   
     

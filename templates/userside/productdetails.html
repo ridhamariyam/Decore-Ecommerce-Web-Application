@@ -49,12 +49,12 @@
 													
 												</li>
 												<li class="level-0 menu-item ">
-													<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+													<a href="{% url "home" %}"><span class="menu-item-text">Blog</span></a>
 													
 												</li>
 												
 												<li class="level-0 menu-item">
-													<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+													<a href="{% url "home" %}"><span class="menu-item-text">Contact</span></a>
 												</li>
 											</ul>
 										</nav>
@@ -124,24 +124,16 @@
 											<div class="col-md-2">
 												<div class="content-thumbnail-scroll">
 													<div class="image-thumbnail slick-carousel slick-vertical" data-asnavfor=".image-additional" data-centermode="true" data-focusonselect="true" data-columns4="5" data-columns3="4" data-columns2="4" data-columns1="4" data-columns="4" data-nav="true" data-vertical="&quot;true&quot;" data-verticalswiping="&quot;true&quot;">
-														<div class="img-item slick-slide">
-															<span class="img-thumbnail-scroll">
-																<img width="600" height="600" src="{{ product.images.first.image.url }}" alt="">
-															</span>
-														</div>
-														<div class="img-item slick-slide">
-															<span class="img-thumbnail-scroll">
-																<img width="600" height="600" src="{{ product.images.first.image.url  }}" alt="">
-																
-															</span>
-														</div>
-														<div class="img-item slick-slide">
-															<span class="img-thumbnail-scroll">
-																<img width="600" height="600" src="{{ product.images.first.image.url  }}" alt="">
-															</span>
-														</div>
-														
-														
+
+															{% for image in product.images.all %}
+																	<div class="img-item slick-slide">
+																		<span class="img-thumbnail-scroll">
+																			<img width="600" height="600" src="{{image.image.url}}" alt="">
+																		</span>
+																	</div>
+															{% endfor %}
+															
+															
 													</div>
 												</div>
 											</div>
@@ -257,20 +249,21 @@
 												<tbody>
 													<tr class="attribute-item">
 														<th class="attribute-label">Color</th>
-														<td class="attribute-value">Black, Blue, Green</td>
+														<td class="attribute-value">Black, Brown, Green</td>
 													</tr>
 												</tbody>
 											</table>
 										</div>
+										{% for variant in variants %}
 										<div class="tab-pane fade" id="reviews" role="tabpanel">
 											<div id="reviews" class="product-reviews">
 												<div id="comments">
-													<h2 class="reviews-title">1 review for <span>Bora Armchair</span></h2>
+													<h2 class="reviews-title">1 review for <span>{{ variant.product.product_name  }}</span></h2>
 													<ol class="comment-list">
 														<li class="review">
 															<div class="content-comment-container">
 																<div class="comment-container">
-																	<img src="media/user.jpg" class="avatar" height="60" width="60" alt="">
+																	<img src="{% static 'media/user.jpg' %}" class="avatar" height="60" width="60" alt="">
 																	<div class="comment-text">
 																		<div class="rating small">
 																			<div class="star star-5"></div>
@@ -286,6 +279,7 @@
 														</li>
 													</ol>
 												</div>
+												{% endfor %}
 												<div id="review-form">
 													<div id="respond" class="comment-respond">
 														<span id="reply-title" class="comment-reply-title">Add a review</span>
@@ -326,226 +320,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="product-related">
-						<div class="section-padding">
-							<div class="section-container p-l-r">
-								<div class="block block-products slider">
-									{% comment %} <div class="block-title"><h2>Related Products</h2></div>
-									<div class="block-content">
-										<div class="content-product-list slick-wrap">
-											<div class="slick-sliders products-list grid" data-slidestoscroll="true" data-dots="false" data-nav="1" data-columns4="1" data-columns3="2" data-columns2="3" data-columns1="3" data-columns1440="4" data-columns="4">
-												<div class="item-product slick-slide">
-													<div class="items">
-														<div class="products-entry clearfix product-wapper">
-															<div class="products-thumb">
-																<div class="product-lable">
-																	<div class="hot">Hot</div>
-																</div>
-																<div class="product-thumb-hover">
-																	<a href="shop-details.html">
-																		<img width="600" height="600" src="media/product/1.jpg" class="post-image" alt="">
-																		<img width="600" height="600" src="media/product/1-2.jpg" class="hover-image back" alt="">
-																	</a>
-																</div>		
-																<div class="product-button">
-																	<div class="btn-add-to-cart" data-title="Add to cart">
-																		<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																	</div>
-																	<div class="btn-wishlist" data-title="Wishlist">
-																		<button class="product-btn">Add to wishlist</button>
-																	</div>
-																	<div class="btn-compare" data-title="Compare">
-																		<button class="product-btn">Compare</button>
-																	</div>
-																	<span class="product-quickview" data-title="Quick View">
-																		<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
-																	</span>		
-																</div>
-															</div>
-															<div class="products-content">
-																<div class="contents text-center">
-																	<h3 class="product-title"><a href="shop-details.html">Zunkel Schwarz</a></h3>
-																	<div class="rating">
-																		<div class="star star-5"></div>
-																	</div>
-																	<span class="price">$100.00</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="item-product slick-slide">
-													<div class="items">
-														<div class="products-entry clearfix product-wapper">
-															<div class="products-thumb">
-																<div class="product-lable">
-																	<div class="hot">Hot</div>
-																</div>
-																<div class="product-thumb-hover">
-																	<a href="shop-details.html">
-																		<img width="600" height="600" src="media/product/2.jpg" class="post-image" alt="">
-																		<img width="600" height="600" src="media/product/2-2.jpg" class="hover-image back" alt="">
-																	</a>
-																</div>		
-																<div class="product-button">
-																	<div class="btn-add-to-cart" data-title="Add to cart">
-																		<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																	</div>
-																	<div class="btn-wishlist" data-title="Wishlist">
-																		<button class="product-btn">Add to wishlist</button>
-																	</div>
-																	<div class="btn-compare" data-title="Compare">
-																		<button class="product-btn">Compare</button>
-																	</div>
-																	<span class="product-quickview" data-title="Quick View">
-																		<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
-																	</span>		
-																</div>
-															</div>
-															<div class="products-content">
-																<div class="contents text-center">
-																	<h3 class="product-title"><a href="shop-details.html">Namaste Vase</a></h3>
-																	<div class="rating">
-																		<div class="star star-4"></div>
-																	</div>
-																	<span class="price">$200.00</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="item-product slick-slide">
-													<div class="items">
-														<div class="products-entry clearfix product-wapper">
-															<div class="products-thumb">
-																<div class="product-lable">
-																	<div class="hot">Hot</div>
-																</div>
-																<div class="product-thumb-hover">
-																	<a href="shop-details.html">
-																		<img width="600" height="600" src="media/product/3.jpg" class="post-image" alt="">
-																		<img width="600" height="600" src="media/product/3-2.jpg" class="hover-image back" alt="">
-																	</a>
-																</div>		
-																<div class="product-button">
-																	<div class="btn-add-to-cart" data-title="Add to cart">
-																		<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																	</div>
-																	<div class="btn-wishlist" data-title="Wishlist">
-																		<button class="product-btn">Add to wishlist</button>
-																	</div>
-																	<div class="btn-compare" data-title="Compare">
-																		<button class="product-btn">Compare</button>
-																	</div>
-																	<span class="product-quickview" data-title="Quick View">
-																		<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
-																	</span>		
-																</div>
-															</div>
-															<div class="products-content">
-																<div class="contents text-center">
-																	<h3 class="product-title"><a href="shop-details.html">Chair Oak Matt Lacquered</a></h3>
-																	<div class="rating">
-																		<div class="star star-0"></div>
-																	</div>
-																	<span class="price">$150.00</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="item-product slick-slide">
-													<div class="items">
-														<div class="products-entry clearfix product-wapper">
-															<div class="products-thumb">
-																<div class="product-lable">
-																	<div class="onsale">-33%</div>
-																</div>
-																<div class="product-thumb-hover">
-																	<a href="shop-details.html">
-																		<img width="600" height="600" src="media/product/4.jpg" class="post-image" alt="">
-																		<img width="600" height="600" src="media/product/4-2.jpg" class="hover-image back" alt="">
-																	</a>
-																</div>		
-																<div class="product-button">
-																	<div class="btn-add-to-cart" data-title="Add to cart">
-																		<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																	</div>
-																	<div class="btn-wishlist" data-title="Wishlist">
-																		<button class="product-btn">Add to wishlist</button>
-																	</div>
-																	<div class="btn-compare" data-title="Compare">
-																		<button class="product-btn">Compare</button>
-																	</div>
-																	<span class="product-quickview" data-title="Quick View">
-																		<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
-																	</span>		
-																</div>
-															</div>
-															<div class="products-content">
-																<div class="contents text-center">
-																	<h3 class="product-title"><a href="shop-details.html">Pillar Dining Table Round</a></h3>
-																	<div class="rating">
-																		<div class="star star-5"></div>
-																	</div>
-																	<span class="price">
-																		<del aria-hidden="true"><span>$150.00</span></del> 
-																		<ins><span>$100.00</span></ins>
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-												<div class="item-product slick-slide">
-													<div class="items">
-														<div class="products-entry clearfix product-wapper">
-															<div class="products-thumb">
-																<div class="product-lable">
-																	<div class="onsale">-7%</div>
-																</div>
-																<div class="product-thumb-hover">
-																	<a href="shop-details.html">
-																		<img width="600" height="600" src="media/product/5.jpg" class="post-image" alt="">
-																		<img width="600" height="600" src="media/product/5-2.jpg" class="hover-image back" alt="">
-																	</a>
-																</div>
-																<div class="product-button">
-																	<div class="btn-add-to-cart" data-title="Add to cart">
-																		<a rel="nofollow" href="#" class="product-btn button">Add to cart</a>
-																	</div>
-																	<div class="btn-wishlist" data-title="Wishlist">
-																		<button class="product-btn">Add to wishlist</button>
-																	</div>
-																	<div class="btn-compare" data-title="Compare">
-																		<button class="product-btn">Compare</button>
-																	</div>
-																	<span class="product-quickview" data-title="Quick View">
-																		<a href="#" class="quickview quickview-button">Quick View <i class="icon-search"></i></a>
-																	</span>		
-																</div>
-																<div class="product-stock">    
-																	<span class="stock">Out Of Stock</span>
-																</div>
-															</div>
-															<div class="products-content">
-																<div class="contents text-center">
-																	<h3 class="product-title"><a href="shop-details.html">Amp Pendant Light Large</a></h3>
-																	<div class="rating">
-																		<div class="star star-4"></div>
-																	</div>
-																	<span class="price">
-																		<del aria-hidden="true"><span>$150.00</span></del> 
-																		<ins><span>$140.00</span></ins>
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div> {% endcomment %}
+					
 								</div>
 							</div>
 						</div>
@@ -564,6 +339,19 @@
 	<div></div>
 </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+  $(document).ready(function() {
+    // Attach a click event handler to each thumbnail
+    $(".img-item").click(function() {
+      // Get the source of the clicked thumbnail
+      var newImageSrc = $(this).find("img").attr("src");
+      
+      // Update the main image source with the clicked thumbnail's source
+      $(".main-image img").attr("src", newImageSrc);
+    });
+  });
+</script>
 
 <!-- Dependency Scripts -->
 <script src="{% static 'libs/popper/js/popper.min.js' %}"></script>

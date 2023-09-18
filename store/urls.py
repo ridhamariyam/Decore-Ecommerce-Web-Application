@@ -26,5 +26,5 @@ urlpatterns = [
     path('delete_variant_image/<int:image_id>/',views.delete_variant_image,name='delete_variant_image'),
     path('admin_variant_search/<int:product_id>/',views.admin_variant_search,name='admin_variant_search'),
    
-
+   
 ]

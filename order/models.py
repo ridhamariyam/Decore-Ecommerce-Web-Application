@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import Account,Address
 from store.models import Product,ProductVariant
+from decimal import Decimal
   
 
 
@@ -30,9 +31,14 @@ class Order(models.Model):
 
     
     def calculate_total_price(self):
-        total_price = sum(item.product.price * item.quantity for item in self.orderitems.all())
+        total_price = sum(item.variant.price * item.quantity for item in self.orderitems.all())
         return total_price
     
+    def calculate_cart_total(self):
+        cart_total = Decimal(0)
+        for order_item in self.orderitems.all():
+            cart_total += order_item.calculate_item_total()
+        return cart_total
    
 
     
@@ -60,3 +66,5 @@ class Order_product(models.Model):
 
     def calculate_item_total(self):
         return self.product.price * self.quantity
+
+   

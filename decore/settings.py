@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path,os
+import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -27,7 +29,7 @@ DEBUG = True
 
 # AUTH_USER_MODEL = 'store.User'
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -47,13 +49,13 @@ INSTALLED_APPS = [
     'order',
     'payment',
     'offer',
-    'wishlist',
+   
     
     
 
     # paypal integration
 
-    'paypal.standard.ipn',
+   
    
     
 ]
@@ -167,13 +169,6 @@ EMAIL_PORT=587
 EMAIL_USE_TLS=True
 EMAIL_HOST_USER= 'ridhamariyam44@gmail.com'
 EMAIL_HOST_PASSWORD= 'fjtrusfpeljaktal'
-
-# payment
-
-# PAYPAL_RECEIVER_EMAIL = 'ridhamariyam44@gmail.com'
-# PAYPAL_TEST = True
-# PAYPAL_CLIENT_ID = 'AT3kxIhhNFXdohsUr-wFhwMl5_F23bNOLEDnsvLOr2pmzj5q6kvviHVEUuihvzCXv6zEDjt0or-HZRaK'
-# PAYPAL_SECRET = 'EF2fZMJgHG-5ttoOqDRJ-ImCgHGV3iRUxleEKtHuzN2R0XfOcR0cLLNQsQsh61rJ-5ZMLjdPpE73dShS'
 
 
 # payment integration 

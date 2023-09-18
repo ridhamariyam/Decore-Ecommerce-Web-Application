@@ -20,7 +20,7 @@ from xhtml2pdf import pisa
 from order.models import Order,Order_product
 import os
 from django.template.loader import render_to_string
-import random
+import random,re
 import string
 
 
@@ -209,6 +209,14 @@ def register(request):
             if password1 != password2:
                 messages.error(request, "Passwords do not match.")
                 return render(request, 'userside/register.html')
+            
+            if len(password1) < 6:
+                messages.error(request, "Password should be at least 6 characters long.")
+                return render(request, 'userside/register.html')    
+            
+            if not re.search(r'[a-zA-Z]', password1) or not re.search(r'\d', password1):
+                messages.error(request, "Password must contain at least one alphabet character and one number.")
+                return render(request, 'userside/register.html')
 
             if not username.isalpha():
                 messages.error(request, "Username should only contain alphabetical characters.")
@@ -267,32 +275,28 @@ def register(request):
     return render(request, 'userside/register.html',{'referral_code':referral_code})
 
 
-
-
 def changepassword(request):
     if request.method == 'POST':
         new_username = request.POST['username']
-        new_firstname = request.POST['first_name'] 
+        new_firstname = request.POST['first_name']
         new_lastname = request.POST['last_name']
         new_phonenumber = request.POST['phone_number']
 
-        if (new_username != request.user.username or
-            new_firstname != request.user.first_name or
-            new_lastname != request.user.last_name or
-            new_phonenumber != request.user.phone_number):
-
+        if (
+            new_username != request.user.username
+            or new_firstname != request.user.first_name
+            or new_lastname != request.user.last_name
+            or new_phonenumber != request.user.phone_number
+        ):
             request.user.username = new_username
             request.user.first_name = new_firstname
             request.user.last_name = new_lastname
             request.user.phone_number = new_phonenumber
             request.user.save()
-
             messages.success(request, 'Profile updated successfully')
-        else:
-            messages.error(request, 'Failed to change profile')
 
         current_password = request.POST['current_password']
-        new_password =  request.POST['new_password']
+        new_password = request.POST['new_password']
         confirm_password = request.POST['confirm_password']
 
         if current_password and new_password == confirm_password:
@@ -306,10 +310,9 @@ def changepassword(request):
         elif new_password != confirm_password:
             messages.error(request, 'New passwords do not match')
 
-        return redirect('profile') 
+        return redirect('profile')
     else:
         return render(request, 'userside/profile.html')
-    
 
 def generate_invoice_pdf(order):
     # Render the invoice template to a string

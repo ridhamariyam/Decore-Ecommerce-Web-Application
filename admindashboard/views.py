@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from order.models import Order,Order_product,Order_product
 from django.shortcuts import get_object_or_404, redirect
 from offer.views import Offer
-from store.models import Product,Coupon
+from store.models import Product,Coupon,ProductVariant,Image
 from django.contrib import messages
 from django.shortcuts import get_object_or_404
 from django.contrib.auth.decorators import login_required
@@ -28,6 +28,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 import csv
 from django.http import HttpResponse
+from category.models import category
 
 # Create your views here.
 def dashboard(request):
@@ -152,80 +153,145 @@ def adminproduct(request):
     return render(request,'admindashboard/productadmin.html',context)
 
 
+# def edit_products(request,product_id):
+#     product = Product.objects.get(id=product_id)
+#     categories = category.objects.all() 
 
+#     if request.method == 'POST':
+#         name = request.POST['product_name']
+#         description = request.POST['description']
+#         price = request.POST['price']
+#         stock = request.POST['stock']
+#         category_id = request.POST['category']
 
+#         category_obj = category.objects.get(id=category_id)
 
+#         product.product_name = name
+#         product.description = description
+#         product.price = price
+#         product.stock = stock
+#         product.category = category_obj
 
+#         product.save()
+#         messages.success(request, 'Product has been edited successfully.')
+        
+    
+#         return redirect('adminproduct')
+    
+#     context = {
+#         'categories': categories,
+#         'product': product,
+#     }
+   
+#     return render(request, 'admindashboard/edit_product.html', context)
 
-def edit_products(request,product_id):
-    product = Product.objects.get(id=product_id)
-    categories = category.objects.all() 
+def edit_products(request, product_id):
+    product = get_object_or_404(Product, pk=product_id)
 
     if request.method == 'POST':
-        name = request.POST['product_name']
-        description = request.POST['description']
-        price = request.POST['price']
-        stock = request.POST['stock']
+        product.product_name = request.POST['name']
         category_id = request.POST['category']
+        description = request.POST['description']
 
-        category_obj = category.objects.get(id=category_id)
+        categoryy = category.objects.get(id=category_id)
 
-        product.product_name = name
+        product.category = categoryy
         product.description = description
-        product.price = price
-        product.stock = stock
-        product.category = category_obj
 
         product.save()
-        messages.success(request, 'Product has been edited successfully.')
-        
-    
+
+        variant_materials = request.POST.getlist('variant_material')
+        variant_prices = request.POST.getlist('variant_price')
+        variant_stocks = request.POST.getlist('variant_stock')
+
+        # Delete existing variants not included in the updated data
+        existing_variants = ProductVariant.objects.filter(product=product)
+        existing_variant_ids = [variant.id for variant in existing_variants]
+        for i in range(len(variant_materials)):
+            if i < len(existing_variants):
+                variant = existing_variants[i]
+                variant.material = variant_materials[i]
+                variant.price = variant_prices[i]
+                variant.stock_quantity = variant_stocks[i]
+                variant.save()
+                existing_variant_ids.remove(variant.id)
+            else:
+                variant = ProductVariant.objects.create(
+                    product=product,
+                    material=variant_materials[i],
+                    price=variant_prices[i],
+                    stock_quantity=variant_stocks[i]
+                )
+
+            j = 0
+            while f'images_{i}_{j}' in request.FILES:
+                images = request.FILES.getlist(f'images_{i}_{j}')
+                for image in images:
+                    Image.objects.create(product_variant=variant, image=image)
+                j += 1
+
+        # Delete any existing variants not included in the update
+        ProductVariant.objects.filter(id__in=existing_variant_ids).delete()
+
+        messages.success(request, 'Product updated successfully')
         return redirect('adminproduct')
-    
-    context = {
-        'categories': categories,
-        'product': product,
-    }
-   
-    return render(request, 'admindashboard/edit_product.html', context)
-
-
+    else:
+        categories = category.objects.all()
+        product_variants = ProductVariant.objects.filter(product=product)
+        images = Image.objects.filter(product_variant__in=product_variants)
+        
+        return render(request, 'admindashboard/edit_product.html', {
+            'product': product,
+            'categories': categories,
+            'product_variants': product_variants,
+            'images': images
+        })
     
 def add_products(request):
-    
-    categories = category.objects.all()
-    context = {
-        
-        'categories':categories,
-    }
     if request.method == 'POST':
-        image = ''
-        try:
-            image = request.FILES['product_image_1']
-        except:
-            if image == '':
-                messages.error(request, "image field can't be empty")
-                return redirect(add_products) 
-
-        name = request.POST['product_name']
-        description = request.POST['description']
-        price = request.POST['price']
-        stock = request.POST['stock']
+        product_name = request.POST['name']
+       
         category_id = request.POST['category']
-
-        category_obj = category.objects.get(id=category_id)
+        description = request.POST['description']
         
-        Product.objects.create(
-            product_name=name,
+        
+        categoryy = category.objects.get(id=category_id)
+        
+        product = Product.objects.create(
+            product_name=product_name,
+          
+            category=categoryy,
             description=description,
-            price=price,
-            category=category_obj,
-            stock=stock,
-            cat_image = image
-            )
-        return redirect(adminproduct)
+            stock = 0
+          
+        )
         
-    return render(request,'admindashboard/add_product.html',context)
+        variant_materials = request.POST.getlist('variant_material')
+        variant_prices = request.POST.getlist('variant_price')
+        variant_stocks = request.POST.getlist('variant_stock')
+        
+        for i in range(len(variant_materials)):
+            variant = ProductVariant.objects.create(
+                product=product,
+                material=variant_materials[i],
+                price=variant_prices[i],
+                stock_quantity=variant_stocks[i]
+            )
+
+            j = 0
+            while f'images_{i}_{j}' in request.FILES:
+                images = request.FILES.getlist(f'images_{i}_{j}')
+                for image in images:
+                    Image.objects.create(product_variant=variant, image=image)
+                j += 1
+        messages.success(request,'added product')
+        return redirect('adminproduct') 
+    else:
+        # Render the form to add a new product
+       
+        categories = category.objects.all()
+        return render(request,'admindashboard/add_product.html', { 'categories': categories})
+    
 
 
 

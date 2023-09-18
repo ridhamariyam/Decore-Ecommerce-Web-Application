@@ -21,101 +21,132 @@
             <div class="card mb-4">
                
 
+               
+
                 <div class="card-body">
-                    <form method="POST" action="{% url 'add_product' %}" enctype="multipart/form-data">
+                    <form method="post" enctype="multipart/form-data">
                         {% csrf_token %}
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>1. General info</h6>
+                        <div class="mb-4">
+                            <label for="product_name" class="form-label">Product title</label>
+                            <input type="text" placeholder="Type here" class="form-control" id="product_name" name='name'/>
                         </div>
-                        <div class="col-md-9">
-                            <div class="mb-4">
-                                <label class="form-label">Product Name</label>
-                                <input type="text" placeholder="Type here" name="product_name" class="form-control" required>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label">Description</label>
-                                <textarea placeholder="Type here" name="description" class="form-control" rows="4" required></textarea>
-                            </div>
-                            <div class="mb-4">
-                                <label class="form-label">Product Image 1</label>
-                                <input type="file" name="product_image_1"  class="form-control" required>
-                            </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                    <hr class="mb-4 mt-0">
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>2. Pricing</h6>
+                        <div class="mb-4">
+                            <label class="form-label">Full description</label>
+                            <textarea placeholder="Type here" class="form-control" rows="4" name="description"></textarea>
                         </div>
                         
-                        <div class="col-md-9">
-                            <div class="mb-4">
-                                <label class="form-label">Cost in RUPEES</label>
-                                <input type="text" placeholder="&#8377; 00.0" name="price" class="form-control" pattern="[0-9]+(\.[0-9]+)?" max="999999.99" required>
-                            </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                    <hr class="mb-4 mt-0">
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>Select Offer</h6>
-                        </div>
                         
-                        <div class="col-md-9">
-                            <div class="mb-4">
-                                <select name="selected_offer" class="form-control">
-                                    <option value="">Select an Offer</option>
-                                    {% for offer in offers %}
-                                    <option value="">{{offer.title}}</option>
-                                    {% endfor %}
-                                    <!-- Add more offers as needed -->
-                                </select>
+                       
+                        
+                        
+                        
+                        <div class="col-sm-6 mb-3">
+                            <label class="form-label">Category</label>
+                            <select class="form-select" name="category" required>
+                                {% for category in categories %}
+                                <option value="{{category.id}}">{{category}}</option>
+                                {% endfor %}
+                            </select>
+                        </div> 
+                        
+                        <div id="variants-container">
+                            <div class="variant-container">
+                                <!-- Variant 1 -->
+                                <div class="mb-4 row gx-2">
+                                    <label class="form-label">Colour</label>
+                                    <input placeholder="" type="text" class="form-control" name="variant_material" required>
+                                    <label class="form-label">Price</label>
+                                    <input placeholder="" type="text" class="form-control" name="variant_price" required>
+                                    <label class="form-label">Stock</label>
+                                    <input placeholder="" type="text" class="form-control" name="variant_stock" required>
+                    
+                                    <!-- Images for Variant 1 -->
+                                    <div class="images-container" data-variant-index="0">
+                                        <label class="form-label">Images</label>
+                                        <input class="form-control" name="images_0_0" type="file" accept="image/*" required>
+                                    </div>
+                                    <button type="button" class="add-image-button" data-variant-index="0">Add Image</button>
+                                </div>
                             </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                    <hr class="mb-4 mt-0">
-
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>3. Stock</h6>
                         </div>
-                        <div class="col-md-9">
-                            <div class="mb-4">
-                                <label class="form-label">Quantity</label>
-                                <input type="text" placeholder="Quantity" name="stock" class="form-control" pattern="[0-9]+" required>
-                            </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                    <hr class="mb-4 mt-0">
+                        <button type="button" id="add-variant-button">Add Variant</button>
+                    
+                        
+                       
+                        <button id="add_image_button" class="btn btn-md rounded font-sm hover-up" type="submit">Add</button>
+                    </form>
+                    
+                   
 
-                    <div class="row">
-                        <div class="col-md-3">
-                            <h6>3. Category</h6>
-                        </div>
-                        <div class="col-md-9">
-                            <div class="mb-4"> 
-                                 {% for category in categories %}
-                                <label class="mb-2 form-check form-check-inline" style="width: 45%;">
-                                    <input class="form-check-input" checked="" value="{{ category.id }}" name="category" type="radio" required>
-                                    <span class="form-check-label">{{category.category_name}}</span>
-                                </label>
-                                {% endfor %} 
-                            </div>
-                        </div> <!-- col.// -->
-                    </div> <!-- row.// -->
-                    <hr class="mb-4 mt-0">
-                    <div>
-                        <button class="btn btn-md rounded font-sm hover-up" type="submit">Create</button>
-                    </div>
+
                 </div>
+
+
+
+
             </div>
         </div>
     </div>
     </div>
 </section> <!-- content-main end// -->
-
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const addVariantButton = document.getElementById('add-variant-button');
+        const variantsContainer = document.getElementById('variants-container');
+        const maxVariants = 5; // Set the maximum number of variants
+        const maxImages = 5; // Set the maximum number of images per variant
+    
+        let variantCount = 1; // Initialize the variant count
+    
+        addVariantButton.addEventListener('click', () => {
+            if (variantCount < maxVariants) {
+                const newVariantDiv = document.createElement('div');
+                newVariantDiv.classList.add('variant-container');
+                newVariantDiv.innerHTML = `
+                    <!-- Variant ${variantCount + 1} -->
+                    <div class="mb-4 row gx-2">
+                        <label class="form-label">Material</label>
+                        <input placeholder="" type="text" class="form-control" name="variant_material" required>
+                        <label class="form-label">Price</label>
+                        <input placeholder="" type="text" class="form-control" name="variant_price" required>
+                        <label class="form-label">Stock</label>
+                        <input placeholder="" type="text" class="form-control" name="variant_stock" required>
+                    
+                        <!-- Images for Variant ${variantCount + 1} -->
+                        <div class="images-container" data-variant-index="${variantCount}">
+                            <label class="form-label">Images</label>
+                            <input class="form-control" name="images_${variantCount}_0" type="file" accept="image/*" required>
+                        </div>
+                        <button type="button" class="add-image-button" data-variant-index="${variantCount}">Add Image</button>
+                    </div>
+                `;
+    
+                variantsContainer.appendChild(newVariantDiv);
+                variantCount++;
+            }
+        });
+    
+        // Add Image button for all variants
+        document.addEventListener('click', event => {
+            if (event.target.classList.contains('add-image-button')) {
+                const variantIndex = event.target.dataset.variantIndex;
+                const imagesContainer = document.querySelector(`[data-variant-index="${variantIndex}"]`);
+                const imageCount = imagesContainer.querySelectorAll('input[type="file"]').length;
+    
+                if (imageCount < maxImages) {
+                    const newImageInput = document.createElement('input');
+                    newImageInput.setAttribute('class', 'form-control');
+                    newImageInput.setAttribute('type', 'file');
+                    newImageInput.setAttribute('name', `images_${variantIndex}_${imageCount}`);
+                    newImageInput.setAttribute('accept', 'image/*');
+                    newImageInput.required = true;
+    
+                    imagesContainer.appendChild(newImageInput);
+                }
+            }
+        });
+    });
+</script>
 
 
 {%endblock%}

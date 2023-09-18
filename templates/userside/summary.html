@@ -187,7 +187,7 @@
                   <p>Shipping Address: <span style="color: black;">{{new_order.address.city}}</span></p>
                   {% comment %} <p>Total Amount:<span style="color: black;"> {{total}}</span></p> {% endcomment %}
                   <p>We will send you an email confirmation shortly.</p>
-                  <a href="{%url 'order_detail' %}" class="btn_1">Proceed to Orders for more details.</a>
+                  <a href="{% url "order" %}" class="btn_1">Proceed to Orders for more details.</a>
                 </div>
                
               </div>

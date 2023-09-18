@@ -4,7 +4,7 @@ from cart.models import Coupon
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
-from store.models import Product
+from store.models import Product,ProductVariant
 
 # Create your views here.
 
@@ -62,16 +62,13 @@ def apply_offer(request):
             selected_offer = Offer.objects.get(id=selected_offer_id)
             product = Product.objects.get(id=product_id)
 
-            # Implement your logic here to update the product based on the selected offer
-            # For example, you can update the product's price and discount percentage:
-            product.price = product.price * (1 - selected_offer.discount_percentage / 100)
+
             product.offer = selected_offer  # Save the selected offer for reference
             product.save()
 
             return redirect('adminproduct')  # Redirect to the product detail page
         except (Offer.DoesNotExist, Product.DoesNotExist):
-            # Handle any errors here
-            pass
+            redirect(adminoffer)
 
     # Handle GET request or errors
     return render(request, 'admindashboard/productadmin.html')

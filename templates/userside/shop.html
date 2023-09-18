@@ -3,6 +3,58 @@
 {% block title %} shop {% endblock %}
 {% block content %}
 
+<style>
+	.dropdown {
+		position: relative;
+		display: inline-block;
+	  }
+	  
+	  .dropdown-btn {
+		background-color: white;
+		border: none;
+		padding: 10px 20px;
+		cursor: pointer;
+	  }
+	  
+	  .dropdown-content {
+		display: none;
+		position: absolute;
+		background-color: white;
+		min-width: 160px;
+		
+		z-index: 1;
+	  }
+	  .dropdown-content1 {
+		
+		border-radius: 3px;
+		background-color:black;
+		min-width: 160px;
+		box-shadow: 0px 8px 16px 0px rgba(205, 218, 212, 0.54);
+		z-index: 1;
+	  }
+	  
+	  .dropdown-content a {
+		color: black;
+		padding: 12px 16px;
+		text-decoration: none;
+		display: block;
+	  }
+	  
+	  .dropdown-content a:hover {
+		background-color: white;
+	  }
+	  
+	  .dropdown:hover .dropdown-content {
+		display: block;
+	  }
+	  .custom-select-label{
+		  background-color:blue;
+		  font-style: normal;
+		  color: black;
+		  padding: 2px;
+	  }
+</style>
+
 	<body class="shop">
 		<div id="page" class="hfeed page-wrapper">
 			<header id="site-header" class="site-header header-v1 absolute">
@@ -18,7 +70,7 @@
 								<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 									<div class="site-logo">
 										<a href="index.html">
-											<img width="400" height="79" src="{% static 'media/logo.png' %}" alt="Ruper – Furniture HTML Theme" />
+											<img width="400" height="79" src="" alt="" />
 										</a>
 									</div>
 								</div>
@@ -116,7 +168,7 @@
 											  </style>
 											  
 											  
-											  <a href="index.html">
+											  <a href="{% url "home" %}">
 												<text>DECORE.</text>
 											  </a>
 										</div>
@@ -135,12 +187,12 @@
 														
 													</li>
 													<li class="level-0 menu-item ">
-														<a href="blog-grid-left.html"><span class="menu-item-text">Blog</span></a>
+														<a href="{% url "home" %}"><span class="menu-item-text">Blog</span></a>
 														
 													</li>
 													
 													<li class="level-0 menu-item">
-														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+														<a href="{% url "home" %}"><span class="menu-item-text">Contact</span></a>
 													</li>
 												</ul>
 											</nav>
@@ -213,17 +265,15 @@
 											<!-- Wishlist -->
 											<div class="ruper-topcart dropdown light">
 												<div class="dropdown mini-cart top-cart">
-												  <div class="remove-cart-shadow"></div>
-												  <a class="dropdown-toggle cart-icon" href="wishlist.html" role="button"
-													 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-													<div class="icons-cart">
-													  <i class="wishlist-icon fa fa-heart"></i>
-													  <span class="cart-count">2</span>
-													</div>
-												  </a>
+												 
+													{% comment %} <span>
+														<a href="{% url 'wishlist' %}" style="font-size: 20px;">
+															<i class=" wishlist-icon fa fa-heart"></i>
+														</a>
+													</span> {% endcomment %}
 												  <!-- Wishlist dropdown content goes here -->
 												</div>
-											</div>
+											</div> 
 	
 											
 											<!-- Cart -->
@@ -307,36 +357,24 @@
 									<div class="row">
 										<div class="col-xl-3 col-lg-3 col-md-12 col-12 sidebar left-sidebar md-b-50">
 											<!-- Block Product Categories -->
-											<div class="block block-product-cats">
+											{% comment %} <div class="block block-product-cats">
+												
 												<div class="block-title"><h2>Categories</h2></div>
 												<div class="block-content">
 													<div class="product-cats-list">
 														<ul>
+															{% for i in product %}
 															<li>
-																<a href="shop-grid-left.html">Bed & Bath <span class="count">2</span></a>
+																<a style="font-size: 14px;">{{i.category}}</a>
 															</li>
-															<li>
-																<a href="shop-grid-left.html">Furniture <span class="count">4</span></a>
-															</li>
-															<li>
-																<a href="shop-grid-left.html">Home Décor <span class="count">3</span></a>
-															</li>
-															<li>
-																<a href="shop-grid-left.html">Lighting <span class="count">6</span></a>
-															</li>
-															<li>
-																<a href="shop-grid-left.html">Office <span class="count">2</span></a>
-															</li>
-															<li>
-																<a href="shop-grid-left.html">Outdoor <span class="count">4</span></a>
-															</li>
+															{% endfor %}
 														</ul>
 													</div>
 												</div>
-											</div>
-
+											</div> {% endcomment %}
+											
 											<!-- Block Product Filter -->
-											<div class="block block-product-filter">
+											{% comment %} <div class="block block-product-filter">
 												<div class="block-title"><h2>Price</h2></div>
 												<div class="block-content">
 													<div id="slider-range" class="price-filter-wrap">
@@ -348,93 +386,43 @@
 														</div>
 													</div>
 												</div>
-											</div>
+											</div> {% endcomment %}
 
 											<!-- Block Product Filter -->
-											<div class="block block-product-filter clearfix">
-												<div class="block-title"><h2>Size</h2></div>
-												<div class="block-content">
-													<ul class="filter-items text">
-														<li><span>L</span></li>
-														<li><span>M</span></li>
-														<li><span>S</span></li>
-													</ul>
-												</div>
-											</div>
-
+											
 											<!-- Block Product Filter -->
-											<div class="block block-product-filter clearfix">
-												<div class="block-title"><h2>Brands</h2></div>
-												<div class="block-content">
-													<ul class="filter-items image">
-														<li><span><img src="{% static 'media/brand/1.jpg' %}" alt="Brand"></span></li>
-														<li><span><img src="{% static 'media/brand/2.jpg' %}" alt="Brand"></span></li>
-														<li><span><img src="{% static 'media/brand/3.jpg' %}" alt="Brand"></span></li>
-														<li><span><img src="{% static 'media/brand/4.jpg' %}" alt="Brand"></span></li>
-														<li><span><img src="{% static 'media/brand/5.jpg' %}" alt="Brand"></span></li>
-													</ul>
-												</div>
-											</div>
+											
 
 											<!-- Block Products -->
 											<div class="block block-products">
-												<div class="block-title"><h2>Feature Product</h2></div>
+												<div class="block-title"><h2>Latest Products</h2></div>
 												<div class="block-content">
 													<ul class="products-list">
-														<li class="product-item">
-															<a href="shop-details.html" class="product-image">
-																<img src="{% static 'media/product/6.jpg' %}">
-															</a>
-															<div class="product-content">
-																<h2 class="product-title">
-																	<a href="shop-details.html">
-																		Dining Table
+														{% for i in  latest_products %}
+															
+																<li class="product-item">
+																	<a href="">
+																		<img width="100" height="100" src="{{ i.images.first.image.url }}" alt="{{i.product.product_name}}">
 																	</a>
-																</h2>
-																<div class="rating small">
-																	<div class="star star-5"></div>
-																</div>
-																<span class="price">
-																	<del aria-hidden="true"><span>₹150.00</span></del>
-																	<ins><span>$100.00</span></ins>
-																</span>
-															</div>
-														</li>
-														<li class="product-item">
-															<a href="shop-details.html" class="product-image">
-																<img src="{% static 'media/product/8.jpg' %}">
-															</a>
-															<div class="product-content">
-																<h2 class="product-title">
-																	<a href="shop-details.html">
-																		Spinning Pendant Lamp
-																	</a>
-																</h2>
-																<div class="rating small">
-																	<div class="star star-0"></div>
-																</div>
-																<span class="price">₹120.00</span>
-															</div>
-														</li>
-														<li class="product-item">
-															<a href="shop-details.html" class="product-image">
-																<img src="{% static 'media/product/9.jpg' %}">
-															</a>
-															<div class="product-content">
-																<h2 class="product-title">
-																	<a href="shop-details.html">
-																		Bora Armchair
-																	</a>
-																</h2>
-																<div class="rating small">
-																	<div class="star star-5"></div>
-																</div>
-																<span class="price">
-																	<del aria-hidden="true"><span>₹200.00</span></del> 
-																	<ins><span>₹180.00</span></ins>
-																</span>
-															</div>
-														</li>
+																	<div class="product-content">
+																		<h2 class="product-title">
+																			<a href="shop-details.html">
+																				{{i.product.product_name}}
+																			</a>
+																		</h2>
+																		{% if i.product.offer %}
+																		<div class="rating small">
+																			<div class="star star-5"></div>
+																		</div>
+																		<span class="price">
+																			<del aria-hidden="true"><span>₹{{i.price}}</span></del>
+																			<ins><span 	style="color:BLACK;">₹{{i.get_offer_price}}</span></ins>
+																		</span>
+																		{% endif %}
+																	</div>
+																</li>
+													
+														{% endfor %}
 													</ul>
 												</div>
 											</div>
@@ -448,25 +436,18 @@
 													</div>
 												</div>
 												<div class="products-topbar-right">
-													<div class="products-sort dropdown">
-														<span class="sort-toggle dropdown-toggle" data-toggle="dropdown" aria-expanded="true">Default sorting</span>
-														<ul class="sort-list dropdown-menu" x-placement="bottom-start">
-															<li class="active"><a href="#">Default sorting</a></li>
-															<li><a href="#">Sort by popularity</a></li>
-															<li><a href="#">Sort by average rating</a></li>
-															<li><a href="#">Sort by latest</a></li>
-															<li><a href="#">Sort by price: low to high</a></li>
-															<li><a href="#">Sort by price: high to low</a></li>
+													<div class="dropdown">
+														<button class="dropdown-btn">
+															<span>Sort By</span>
+															<span class="arrow"></span>
+														</button>
+														<ul class="dropdown-content">
+															<li><a href="{% url 'shop' %}?sort=price_high_to_low">Price high to low</a></li>
+															<li><a href="{% url 'shop' %}?sort=low_to_high">Price low to high</a></li>
+															<li><a href="{% url 'shop' %}?sort=latest">latest</a></li>
 														</ul>
 													</div>
-													<ul class="layout-toggle nav nav-tabs">
-														<li class="nav-item">
-															<a class="layout-grid nav-link active" data-toggle="tab" href="#layout-grid" role="tab"><span class="icon-column"><span class="layer first"><span></span><span></span><span></span></span><span class="layer middle"><span></span><span></span><span></span></span><span class="layer last"><span></span><span></span><span></span></span></span></a>
-														</li>
-														<li class="nav-item">
-															<a class="layout-list nav-link" data-toggle="tab" href="#layout-list" role="tab"><span class="icon-column"><span class="layer first"><span></span><span></span></span><span class="layer middle"><span></span><span></span></span><span class="layer last"><span></span><span></span></span></span></a>
-														</li>
-													</ul>
+													
 												</div>
 											</div>
 											
@@ -474,7 +455,7 @@
 												<div class="tab-pane fade show active" id="layout-grid" role="tabpanel">
 													<div class="products-list grid">
 														<div class="row">
-															{% for product in products %}
+															{% for product in products1 %}
 															 <div class="col-xl-4 col-lg-4 col-md-4 col-sm-6">
 																<div class="products-entry clearfix product-wapper">
 																	<div class="products-thumb">
@@ -494,9 +475,9 @@
 																			<div class="btn-add-to-cart" data-title="Add to cart">
 																				<a rel="nofollow" href="{% url 'add_to_cart' product.id  %}" class="product-btn button">Add to cart</a>
 																			</div>
-																			<div class="btn-wishlist" data-title="Wishlist">
+																			{% comment %} <div class="btn-wishlist" data-title="Wishlist">
 																				<a href="{% url 'add_to_wishlist' product.id  %}"class="product-btn">Add to wishlist</a>
-																			</div>
+																			</div> {% endcomment %}
 																			<div class="btn-compare" data-title="Compare">
 																				<button class="product-btn">Compare</button>
 																			</div>
@@ -547,111 +528,156 @@
 				</div><!-- #main-content -->
 			</div>
 
-			<footer id="site-footer" class="site-footer background">
-				<div class="footer">
-					<div class="section-padding">
-						<div class="section-container">
-							<div class="block-widget-wrap">
-								<div class="row">
-									<div class="col-lg-3 col-md-6">
-										<div class="block block-menu m-b-20">
-											<h2 class="block-title">Contact Us</h2>
-											<div class="block-content">
-												<ul>
-													<li>
-														<a href="page-contact.html">616.774.0561</a>
-													</li>
-													<li>
-														<a href="page-contact.html">866.453.4748</a>
-													</li>
-													<li>
-														<a href="page-contact.html">HR Fax: 810.222.5439</a>
-													</li>
-													<li>
-														<a href="page-contact.html">sales@ruperfurniture.com</a>
-													</li>
-												</ul>
-											</div>
-										</div>
+			
+		</div><!-- #content -->
+	</div><!-- #primary -->
+</div><!-- #main-content -->
+</div>
 
-										<div class="block block-social">
-											<ul class="social-link">
-												<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-												<li><a href="#"><i class="fa fa-instagram"></i></a></li>
-												<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-												<li><a href="#"><i class="fa fa-behance"></i></a></li>
-											</ul>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6">
-										<div class="block block-menu">
-											<h2 class="block-title">Showroom</h2>
-											<div class="block-content">
-												<p>1000 84th Street SW , Byron Center, MI 49315</p>
-												<p>AmericasMart Bldg. #1</p>
-												<p>Suite 5C-1, Atlanta, GA 30303</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6">
-										<div class="block block-menu">
-											<h2 class="block-title">Services</h2>
-											<div class="block-content">
-												<ul>
-													<li>
-														<a href="page-about.html">Sale</a>
-													</li>
-													<li>
-														<a href="page-about.html">Quick Ship</a>
-													</li>
-													<li>
-														<a href="page-about.html">New Designs</a>
-													</li>
-													<li>
-														<a href="page-about.html">Accidental Fabric Protection</a>
-													</li>
-													<li>
-														<a href="page-about.html">Furniture Care</a>
-													</li>
-													<li>
-														<a href="page-about.html">Gift Cards</a>
-													</li>
-												</ul>
-											</div>
-										</div>
-									</div>
-									<div class="col-lg-3 col-md-6">
-										<div class="block block-newsletter">
-											<h2 class="block-title">Newsletter</h2>
-											<div class="block-content">
-												<div class="newsletter-text">Enter your email below to be the first to know about new collections and product launches.</div>
-												<form action="#" method="post" class="newsletter-form">
-													<input type="email" class="bg-white" name="your-email" value="" size="40" placeholder="Email address">
-													<span class="btn-submit">
-														<input type="submit" value="Subscribe">
-													</span>
-												</form>
-											</div>
-										</div>
-										<div class="block block-image">
-											<img width="309" height="32" src="{% static 'media/payments.png' %}" alt="">
-										</div>
-									</div>
-								</div>
+<footer id="site-footer" class="site-footer background">
+<div class="footer" style="background: unset">
+	<div class="section-padding">
+		<div class="section-container large">
+			<div class="block-widget-wrap">
+				<div class="row">
+					<div class="col-lg-3 col-md-6">
+						<div class="block block-menu"  style="background: unset">
+							<h2 class="block-title">About</h2>
+							<div class="block-content">
+								<ul>
+									<li>
+										<a href="">Our Story</a>
+									</li>
+									<li>
+										<a href="">Visit Melbourne Studio</a>
+									</li>
+									<li>
+										<a href="">Visit Sydney Studio</a>
+									</li>
+									<li>
+										<a href="">Visit Brisbane Studio [Closed]</a>
+									</li>
+									<li>
+										<a href="">Design</a>
+									</li>
+									<li>
+										<a href="">How Ruper Works</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
-				</div>
-				<div class="footer-bottom">
-					<div class="section-padding">
-						<div class="section-container">
-							<div class="block-widget-wrap">
-								<p class="copyright text-center">Copyright © 2022. All Right Reserved</p>
+					<div class="col-lg-3 col-md-6" >
+						<div class="block block-menu"  style="background: unset" >
+							<h2 class="block-title">Help</h2>
+							<div class="block-content">
+								<ul>
+									<li>
+										<a href="page-faq.html">Contact & FAQ</a>
+									</li>
+									<li>
+										<a href="page-faq.html">Track Your Order</a>
+									</li>
+									<li>
+										<a href="page-faq.html">Returns & Refunds</a>
+									</li>
+									<li>
+										<a href="page-faq.html">Shipping & Delivery</a>
+									</li>
+									<li>
+										<a href="page-faq.html">Lead Times</a>
+									</li>
+								</ul>
 							</div>
 						</div>
 					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="block block-menu" style="background: unset" >
+							<h2 class="block-title">Services</h2>
+							<div class="block-content">
+								<ul>
+									<li>
+										<a href="page-about.html">Sale</a>
+									</li>
+									<li>
+										<a href="page-about.html">Quick Ship</a>
+									</li>
+									<li>
+										<a href="page-about.html">New Designs</a>
+									</li>
+									<li>
+										<a href="page-about.html">Accidental Fabric Protection</a>
+									</li>
+									<li>
+										<a href="page-about.html">Furniture Care</a>
+									</li>
+									<li>
+										<a href="page-about.html">Gift Cards</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-lg-3 col-md-6">
+						<div class="block block-newsletter m-b-30" style="background: unset">
+							<h2 class="block-title">Newsletter</h2>
+							<div class="block-content">
+								<div class="newsletter-text">Enter your email below to be the first to know
+									about new collections and product launches.</div>
+								<form action="#" method="post" class="newsletter-form">
+									<input type="email" class="bg-white" name="your-email" value=""
+										size="40" placeholder="Email address">
+									<span class="btn-submit">
+										<input type="submit" value="Subscribe">
+									</span>
+								</form>
+							</div>
+						</div>
+
+						{% comment %} <div class="block block-social">
+							<ul class="social-link">
+								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li><a href="#"><i class="fa fa-instagram"></i></a></li>
+								<li><a href="#"><i class="fa fa-dribbble"></i></a></li>
+								<li><a href="#"><i class="fa fa-behance"></i></a></li>
+							</ul>
+						</div> {% endcomment %}
+					</div>
 				</div>
-			</footer>
+			</div>
 		</div>
+	</div>
+</div>
+<div class="footer-bottom">
+	
+		<div class="section-container large">
+			<div class="block-widget-wrap">
+				<div class="row">
+					<div class="col-md-6">
+						<div class="footer-left">
+							<p class="copyright">Copyright © 2022. All Right Reserved</p>
+						</div>
+					</div>
+					<div class="col-md-6">
+						<div class="footer-right">
+							<div class="block block-image">
+								<img width="309" height="32" src="{% static 'media/payments.png' %}" alt="">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+</footer>
+<script>
+    // Function to redirect to the selected option's href
+    function redirectToSelectedOption() {
+        const selectedOption = document.getElementById('dropdown').value;
 
-		{% endblock content %} -->
+        // Redirect to the selected option's URL
+        window.location.href = selectedOption;
+    }
+</script>
+{% endblock %}

@@ -13,8 +13,9 @@
             </div>
             <div>
                 <a href="{% url 'add_product' %}" class="btn btn-primary btn-sm rounded">Add Product</a>
+                {% comment %} <a href="{% url 'add_product' %}" class="btn btn-primary btn-sm rounded">give Variation</a> {% endcomment %}
             </div>
-            
+           
         </div>
         <div class="card mb-4">
             <header class="card-header">
@@ -39,7 +40,7 @@
                         <tr>
                             <th>image</th>
                             <th>Product Name</th>
-                            <th>Price</th>
+                           
                             <th>Stock</th>
                             <th>Status</th>
                             <th>Give offer</th>
@@ -51,18 +52,20 @@
                     </thead>
                     <tbody>
                       {% for product in products %}
+                       
                         <tr>
                           <td>
                             <a class="itemside" href="#">
                                 <div class="left"> 
-                                   <img src={% if product.cat_image %}"{{product.cat_image.url}}"{% endif %} class="img-sm img-thumbnail" alt="product" style="max-width: 50px; max-height: 50px;" /> 
+                                   <img src="{{product.get_variant_imag}}" class="img-sm img-thumbnail" alt="product" style="max-width: 50px; max-height: 50px;" /> 
                                 </div> 
                                 
                             </a>
                           </td>
+                         
                             <td>{{product.product_name}}</td>
-                            <td>&#8377;{{product.price}}</td>
-                            <td>{{product.stock}}</td>
+                            {% comment %} <td>&#8377;{{product.price}}</td> {% endcomment %}
+                            <td>{{product_variant}}</td>
                             <td>
                               {% if product.is_available %}
                                   <span class="badge rounded-pill alert-success" style="background-color: black; color: white;">Available</span>

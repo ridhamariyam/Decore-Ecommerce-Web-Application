@@ -23,6 +23,11 @@ class Product(models.Model):
     def get_color_variants(self):
         return self.color_variants.all()
     
+    def get_variant_imag(self):
+
+        variant = self.variants.all().first()
+        image = variant.images.all().first()
+        return image.image.url
     
       
       
@@ -76,7 +81,8 @@ class Image(models.Model):
  
     product_variant = models.ForeignKey(ProductVariant, on_delete=models.CASCADE,related_name='images')
     image = models.ImageField(upload_to='product/images/')
-
+    
+   
 
 class Coupon(models.Model):
     Coupon_code = models.CharField(max_length=20)

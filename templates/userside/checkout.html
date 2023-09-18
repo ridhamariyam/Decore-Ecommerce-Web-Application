@@ -111,7 +111,7 @@
 													</li>
 													
 													<li class="level-0 menu-item">
-														<a href="page-contact.html"><span class="menu-item-text">Contact</span></a>
+														<a href="{% url "home" %}"><span class="menu-item-text">Contact</span></a>
 													</li>
 												</ul>
 											</nav>
@@ -160,8 +160,7 @@
 							</div>
 						</div>
 
-			
-									<div id="content" class="site-content" role="main">
+												<div id="content" class="site-content" role="main">
 										<div class="section-padding">
 											<div class="section-container p-l-r">
 												<div class="shop-checkout">
@@ -274,8 +273,7 @@
 																				"amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
 																				"currency": "INR",
 																				"name": "EyeEnvy",
-																				//"redirect": false,
-																				//"callback_url": "http://127.0.0.1:8000/order/presuccess/",
+																				
 																				"description": "Purchase",
 																				"image": "https://example.com/your_logo",
 																				"order_id": "{{ payment.id }}", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
@@ -284,7 +282,7 @@
 																				"handler": function (response){
 																					$.ajax({
 																						method: "POST",
-																						url: "http://127.0.0.1:8000/place_order_razorpay/",
+																						url: "http://www.decore.website/place_order_razorpay/",
 																						data: {'address':options.address, csrfmiddlewaretoken: options.token},
 
 																						success: function (responsec) {

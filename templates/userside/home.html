@@ -26,7 +26,7 @@
 							</div>
 							<div class="col-xl-4 col-lg-4 col-md-4 col-sm-6 col-6 header-center">
 								<div class="site-logo">
-									<a href="home.html">
+									<a href="{% url "home" %}">
 										<img width="400" height="79" src="media/DECORE.png" alt="decore – Furniture HTML Theme" />
 									
 									</a>
@@ -64,7 +64,7 @@
 															class="menu-item-text">SHOP</span></a>
 												</li>
 												<li class="level-0 menu-item">
-													<a href="{% url 'about' %}"><span
+													<a href="{% url 'home' %}"><span
 															class="menu-item-text">ABOUT</span></a>
 												</li>
 												
@@ -84,7 +84,7 @@
 
 								<div class="col-xl-2 col-lg-2 col-md-12 col-sm-12 col-12 text-center header-center">
 									<div class="site-logo">
-										<a href="home.html">
+										<a href="{% url "home" %}">
 											<img width="400" height="79" src="{% static 'media/DECORE.png' %}"
 												alt="decore – Furniture HTML Theme" />
 										</a>
@@ -128,11 +128,11 @@
 										</span>
 										{% endif %}
 								
-										<span>
+										{% comment %} <span>
 											<a href="{% url 'wishlist' %}" style="font-size: 20px;">
 												<i class=" fa fa-heart"></i>
 											</a>
-										</span>
+										</span> {% endcomment %}
 									</div>
 								</div>
 								
@@ -314,7 +314,7 @@
 											<div class="products-list grid">
 									<!-- ------------------------------------------------------------------			 -->
 												<div class="row">
-													{% for product in products|slice:":4" %}
+													{% for i in  latest_products %}
 													<div class="col-xl-3 col-lg-4 col-md-4 col-sm-6">
 														<div class="items">
 															<div class="products-entry clearfix product-wapper">
@@ -325,7 +325,7 @@
 																	<div class="product-thumb-hover">
 																		<a href="{% url 'shop' %}">
 																			<img width="600" height="600"
-																			 src="{{ product.cat_image.url }}" alt="{{ product.product_name }}">
+																			 src="{{ i.images.first.image.url }}" alt="{{i.product.product_name }}">
 																			
 																		</a>
 																	</div>
@@ -336,10 +336,10 @@
 																				class="product-btn button">Add to
 																				cart</a>
 																		</div>
-																		<div class="btn-wishlist" data-title="Wishlist">
+																		{% comment %} <div class="btn-wishlist" data-title="Wishlist">
 																			<button class="product-btn">Add to
 																				wishlist</button>
-																		</div>
+																		</div> {% endcomment %}
 																		<div class="btn-compare" data-title="Compare">
 																			<button class="product-btn">Compare</button>
 																		</div>
@@ -353,9 +353,12 @@
 																</div>
 																<div class="products-content">
 																	<div class="contents text-center">
+																		{% if i.product.offer %}
 																		<h3 class="product-title"><a
-																				href="shop-details.html">{{product.product_name}}</a></h3>
-																		<span class="price"> ₹{{product.price}}</span>
+																				href="shop-details.html">{{i.product.product_name }}</a></h3>
+																				<del aria-hidden="true"><span>₹{{i.price}}</span></del>
+																				<span 	style="color:red;">₹{{i.get_offer_price}}</span>
+																		{% endif %}
 																	</div>
 																</div>
 															</div>

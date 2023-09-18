@@ -11,12 +11,12 @@ from django.db.models import Sum
 from  django.urls import reverse
 from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
-from paypal.standard.forms import PayPalPaymentsForm
+
 from django.http import HttpResponseRedirect
 from .models import Product  # Import your models
 from offer.models import Offer
 from django.shortcuts import render
-import paypalrestsdk  
+
 from django.conf import settings
 from django.shortcuts import render, redirect
 from django.urls import reverse
@@ -63,18 +63,21 @@ def cart(request):
             cart.coupon = None  # Remove the coupon
             cart.save()
             messages.success(request, 'Coupon removed successfully')
+    quantity = 0  # Initialize quantity to zero
+
+    offer = 0
     for cart_item in cart_items:
-        # Access the 'quantity' attribute of the cart item
-        quantity = cart_item.quantity
+    # Access the 'quantity' attribute of the cart item and update the total quantity
+        quantity += cart_item.quantity
+        if cart_item.product.offer:
+            offer += ((cart_item.variant.price - cart_item.variant.get_offer_price()) * cart_item.quantity)
         
     total_price = cart.get_total_price()
-    offer = sum(item.variant.get_offer_price() for item in cart_items)
-    discount = total_price - (offer * quantity)
+    total = total_price - offer
 
     if cart.coupon:
-        total =  total_price - discount - cart.coupon.discount_price
-    else:
-        total = total_price - discount
+        total =  total - cart.coupon.discount_price
+
 
     
     context = {
@@ -83,7 +86,7 @@ def cart(request):
         'offer': offer,
         'variant':productVariant,
         'total_price' : total,
-        'discount': discount,
+        
         'cart_item':cart_item,
         'quantity':quantity,
         'total':total
@@ -228,26 +231,32 @@ def checkout(request):
         quantity = cart_item.quantity
         single_product_price =  cart_item.get_total_price()
         total_price = cart.get_total_price()
-        offer = sum(item.variant.get_offer_price() for item in cart_items)
-        discount = total_price - (offer * cart_item.quantity)
+       
+        quantity = 0  # Initialize quantity to zero
 
-        checkout_subtotal = (single_product_price * quantity )- offer
+        offer = 0
+        for cart_item in cart_items:
+        # Access the 'quantity' attribute of the cart item and update the total quantity
+            quantity += cart_item.quantity
+            if cart_item.product.offer:
+                offer += ((cart_item.variant.price - cart_item.variant.get_offer_price()) * cart_item.quantity)
+            
+        total_price = cart.get_total_price()
+        total = total_price - offer
 
         if cart.coupon:
-            total =  total_price - discount - cart.coupon.discount_price
-        else:
-            total = total_price - discount
+            total =  total - cart.coupon.discount_price
 
-        
-        subtotal = total_price - discount
 
-    total_quantity = cart_products.aggregate(Sum('quantity'))['quantity__sum'] or 0
+
+      
+       
 
     client = razorpay.Client(auth= ( settings.KEY, settings.KEY_SECRET ))
     payment = client.order.create({'amount' :int(total) * 100 , 'currency' :'INR', 'payment_capture' : 1 })
 
     context = {
-        'total_quantity': total_quantity,
+        # 'total_quantity': total_quantity,
         'add': addresses, 
         'cart': cart,
         'cart_products': cart_products,
@@ -257,9 +266,9 @@ def checkout(request):
         'variant':productVariant,
         'total':total,
         'quantity':quantity,
-        'subtotal':subtotal,
+        # 'subtotal':subtotal,
         'product':product,
-        ' checkout_subtotal': checkout_subtotal,
+        # ' checkout_subtotal': checkout_subtotal,
         'payment':payment,
 
 
