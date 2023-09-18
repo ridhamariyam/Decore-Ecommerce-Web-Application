@@ -272,7 +272,7 @@
 																				"key": "rzp_test_syOLTFEUoECCp5", // Enter the Key ID generated from the Dashboard
 																				"amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
 																				"currency": "INR",
-																				"name": "EyeEnvy",
+																				"name": "Decore",
 																				
 																				"description": "Purchase",
 																				"image": "https://example.com/your_logo",
@@ -282,14 +282,14 @@
 																				"handler": function (response){
 																					$.ajax({
 																						method: "POST",
-																						url: "/place_order_razorpay/",
+																						url: "https://decore.website/place_order_razorpay/",
 																						data: {'address':options.address, csrfmiddlewaretoken: options.token},
 
 																						success: function (responsec) {
 																							alert(responsec.order)
 																	
 																								
-																							window.location.href = `http://127.0.0.1:8000/summary/${responsec.order}`
+																							window.location.href = `https://decore.website/summary/${responsec.order}`
 														
 																						}
 														
