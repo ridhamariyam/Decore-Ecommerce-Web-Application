@@ -30,10 +30,13 @@ import csv
 from django.http import HttpResponse
 from category.models import category
 
+
 # Create your views here.
 def dashboard(request):
     if not request.user.is_superuser:
         return redirect('userside/home')
+    
+    print("dashboard")
     
     total_revenue = Order.objects.aggregate(total_revenue=Sum('total_price'))['total_revenue'] or 0
     total_orders = Order.objects.count()
@@ -462,16 +465,17 @@ def update_order_status(request, order_id):
 # ======================================sales report=======================================
 @login_required(login_url='user_login')
 def salesreport(request):
-
+    print("hiiiiiiiiiii")
     if not request.user.is_superuser:
-        return redirect('index')
-    
+        return redirect('home')
+   
     orders = Order.objects.all().order_by('-created_at')[:10] # Latest orders first
-
+    
     # Get the start_date and end_date from the request's GET parameters
     start_date_str = request.GET.get('start_date')
     end_date_str = request.GET.get('end_date')
 
+    print("=====hi=====",end_date_str,start_date_str)
     # Parse the date strings to datetime objects
     if start_date_str:
         start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
@@ -482,25 +486,32 @@ def salesreport(request):
         end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
     else:
         end_date = None
-
+    
+    print("======hbh====",start_date,end_date)
+    
     # Ensure that the end date is not in the future
     today = timezone.now().date()
+   
+# Check if the end_date is in the future
     if end_date and end_date.date() > today:
         messages.error(request, 'End date cannot be in the future.')
         return redirect('sales_report')
-    
+
     # Ensure that the start date is not after the end date
     if start_date and end_date and start_date > end_date:
         messages.error(request, 'Start date cannot be after the end date.')
         return redirect('sales_report')
 
-
-    # Filter orders based on date range if start_date and end_date are provided
+    # Filter orders based on the date range if start_date and end_date are provided
     if start_date and end_date:
-        orders =Order.objects.filter(created_at__range=(start_date, end_date)).order_by('-created_at')[:5]
+        end_date = end_date + timedelta(days=1)
+        orders = Order.objects.filter(created_at__range=(start_date, end_date)).order_by('-created_at')[:5]
     else:
-        orders = Order.objects.all()
-        
+        # If end_date is today, give all orders up to today
+        if end_date and end_date.date() == today:
+            end_date = datetime.combine(today, datetime.max.time())
+        else:
+            orders = Order.objects.all()
                 
 
     

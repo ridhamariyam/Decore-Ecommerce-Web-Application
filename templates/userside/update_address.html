@@ -277,7 +277,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="phone_number">Phone number</label>
-                                <input type="text" name="phone_number" id="phone_number" class="form-control" value="{{ address.phone_number }}">
+                                <input type="number" name="phone_number" id="phone_number" class="form-control" value="{{ address.phone_number }}">
                             </div>
                             <div class="form-group">
                                 <label for="phone_number">Pincode</label>
@@ -314,5 +314,60 @@
             </div>
         </div>
     </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form.default-form-box");
+            form.addEventListener("submit", function (event) {
+                // Define a flag to track whether the form is valid
+                let isValid = true;
+    
+                // Full Name validation: Should not be empty
+                const fullNameInput = document.getElementById("fullname");
+                if (fullNameInput.value.trim() === "") {
+                    isValid = false;
+                    alert("Full Name cannot be empty.");
+                    event.preventDefault(); // Prevent form submission
+                }
+    
+                // Phone Number validation: Should be a valid numeric value
+            const phoneNumberInput = document.getElementById("phone_number");
+            const phoneNumberValue = phoneNumberInput.value.trim();
+            if (!/^\d{10}$/.test(phoneNumberValue)) {
+                isValid = false;
+                alert("Phone Number must be a valid 10-digit numeric value.");
+                event.preventDefault(); // Prevent form submission
+            }
+            const pincodeInput = document.getElementById("pincode");
+            const pincodeValue = pincodeInput.value.trim();
+            if (!/^\d{6}$/.test(pincodeValue)) {
+                isValid = false;
+                alert("Pincode must be a valid 6-digit numeric value.");
+                event.preventDefault(); // Prevent form submission
+            }
+    
+                // Other fields (Pincode, City, State, Building Name, Street Name, Landmark)
+                const otherInputs = [
+                  
+                    "city",
+                    "state",
+                    "building_name",
+                    "street_name",
+                    "landmark"
+                ];
+                for (const inputName of otherInputs) {
+                    const input = document.getElementById(inputName);
+                    if (input.value.trim() === "") {
+                        isValid = false;
+                        alert(`${inputName} cannot be empty.`);
+                        event.preventDefault(); // Prevent form submission
+                        break; // Exit the loop after the first empty field is found
+                    }
+                }
+    
+                // If isValid is still true, the form will be submitted
+            });
+        });
+    </script>
+    
 
     {% endblock %}

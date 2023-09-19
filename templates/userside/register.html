@@ -124,13 +124,13 @@
                               <input type="email" class="input-text" name="email" value="">
                             </div>
                             <div class="password">
-                              <label>Password <span class="required">*</span></label>
-                              <input type="password" class="input-text" name="password1">
-                            </div>
-                            <div class="password">
-                              <label>confirm Password <span class="required">*</span></label>
-                              <input type="password" class="input-text" name="password2">
-                            </div>
+                              <label for="password1">Password <span class="required">*</span></label>
+                              <input type="password" class="input-text" id="password1" name="password1" required minlength="6">
+                          </div>
+                          <div class="password">
+                              <label for="password2">Confirm Password <span class="required">*</span></label>
+                              <input type="password" class="input-text" id="password2" name="password2" required minlength="6">
+                          </div>
                             {% csrf_token %} 
                              {% if messages %}
                                 {% for message in messages %}
@@ -373,6 +373,23 @@
       }
     };
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector(".register");
+        const password1Input = document.getElementById("password1");
+        const password2Input = document.getElementById("password2");
+
+        form.addEventListener("submit", function (event) {
+            if (password1Input.value !== password2Input.value) {
+                alert("Passwords do not match.");
+                event.preventDefault(); // Prevent form submission
+            } else if (password1Input.value.length < 6) {
+                alert("Password must be at least 6 characters.");
+                event.preventDefault(); // Prevent form submission
+            }
+        });
+    });
+</script>
 </body>
 
 <!-- Mirrored from caketheme.com/html/ruper/page-login.html by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 07 Jul 2023 09:39:08 GMT -->

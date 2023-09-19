@@ -80,7 +80,7 @@
 												}
 											  </style>
 											  
-											  <a href="index.html">
+											  <a href="{% url "home" %}">
 												<text>DECORE.</text>
 											  </a>
 										</div>
@@ -169,7 +169,7 @@
                             </div>
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="phone_number">Phone number</label>
-                                <input class="col-6" type="text" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
+                                <input class="col-6" type="number" id="phone_number" name="phone_number" value="{{ user.phone_number }}">
                             </div>
                             <div class="default-form-box">
                                 <label class="form-label col-6" for="last_name">Password</label>
@@ -193,16 +193,62 @@
                         
                             <button class="btn btn-md btn-black-default-hover" id="changePasswordButton" type="button">Save Changes</button>
                         </form>
-                        
                         {% if messages %}
-                            <ul class="messages">
-                                {% for message in messages %}
-                                    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                                {% endfor %}
-                            </ul>
-                        {% endif %}
-                        
-                        <script>
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %} style="color: green;">{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %} 
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const profileForm = document.getElementById("profileForm");
+        const changePasswordButton = document.getElementById("changePasswordButton");
+        const usernameInput = document.getElementById("username");
+        const firstNameInput = document.getElementById("first_name");
+        const lastNameInput = document.getElementById("last_name");
+        const phoneInput = document.getElementById("phone_number");
+        const currentPasswordInput = document.getElementById("current_password");
+        const newPasswordInput = document.getElementById("new_password");
+        const confirmPasswordInput = document.getElementById("confirm_password");
+        const passwordChangeFields = document.getElementById("passwordChangeFields");
+
+        if (profileForm && changePasswordButton) {
+            changePasswordButton.addEventListener("click", function (event) {
+                // Perform validation here
+                let isValid = true;
+
+                // Check if username contains only letters
+                if (!/^[a-zA-Z]+$/.test(usernameInput.value)) {
+                    alert("Username should contain only letters.");
+                    isValid = false;
+                }
+                if (!/^[a-zA-Z]+$/.test(firstNameInput.value)) {
+                    alert("First Name should contain only letters.");
+                    isValid = false;
+                }
+
+                // Check if last name contains only letters
+                if (!/^[a-zA-Z]+$/.test(lastNameInput.value)) {
+                    alert("Last Name should contain only letters.");
+                    isValid = false;
+                }
+
+                // You can add more validation rules for other fields here
+
+                if (isValid) {
+                    // If all validations pass, submit the form
+                    profileForm.submit();
+                } else {
+                    event.preventDefault(); // Prevent form submission
+                }
+            });
+        }
+    });
+</script>
+                        {% comment %} <script>
                             document.addEventListener("DOMContentLoaded", function () {
                                 const changePasswordButton = document.getElementById("changePasswordButton");
                                 const changePasswordLink = document.getElementById("changePasswordLink");
@@ -220,7 +266,7 @@
                                     });
                                 }
                             });
-                        </script>
+                        </script> {% endcomment %}
                         <script>
                             document.addEventListener('DOMContentLoaded', function () {
                                 const changePasswordLink = document.querySelector('#changePasswordLink');
@@ -232,6 +278,8 @@
                                 });
                             });
                         </script>
+                        
+                        
                     </div>
                 </div>
             </div>
