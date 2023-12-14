@@ -68,6 +68,8 @@ livelink : [decore.website](https://decore.website/)
         python manage.py migrate
         python manage.py runserver
 
+   
+
 **Visit http://localhost:8000 in your web browser to access the application.**
 
 feel free to Clone this repo to kickstart your own e-commerce project. Feel free to customize and use it according to your needs. Happy coding!
